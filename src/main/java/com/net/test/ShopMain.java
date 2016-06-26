@@ -17,52 +17,61 @@ import com.net.crawler.JDCrawler;
 import com.net.crawler.TBCrawler;
 
 public class ShopMain {
-	 private static List<String> lists=new ArrayList<String>();
-		public static void main(String[] args) {
-			//TBTest();
-			JDTest();
-			//GMTest();
+	private static List<String> lists = new ArrayList<String>();
+
+	public static void main(String[] args) {
+		// TBTest();
+		JDTest();
+		// GMTest();
+	}
+
+	private static void GMTest() {
+		List<String> contents = GMCrawler.creatTBCrawler().searchObject(
+				"ï¿½ï¿½Ë¶ï¿½Ê¼Ç±ï¿½");
+		for (String content : contents) {
+			ShopBean bean = GMFactory.getInstance().createShopImfBean(content);
+			String id = ((GMBean) bean).getShopID();
+			String det = ((GMBean) bean).getDeteil_url();
+			String title = ((GMBean) bean).getTitle();
+			System.out.println(title);
+			String content1 = GMCrawler.creatTBCrawler().searchUrl(
+					((GMBean) bean).getDeteil_url());
+			// GMCrawler.creatTBCrawler().searchComment(id, "1");
 		}
-		private static void GMTest() {
-			List<String> contents=GMCrawler.creatTBCrawler().searchObject("»ªË¶±Ê¼Ç±¾");
-			for (String content : contents) {
-				ShopBean bean=GMFactory.getInstance().createShopImfBean(content);
-				String id=((GMBean)bean).getShopID();
-				String det=((GMBean)bean).getDeteil_url();
-				String title=((GMBean)bean).getTitle();
-				System.out.println(title);
-			    String content1=GMCrawler.creatTBCrawler().searchUrl(((GMBean)bean).getDeteil_url());
-			  //  GMCrawler.creatTBCrawler().searchComment(id, "1");
-			}
-		}
-		private static void JDTest() {
-			List<String> contents=JDCrawler.creatTBCrawler().searchObject("½ð");
-			for (String content : contents) {
-			
-				ShopBean bean=JDFactory.getInstance().createShopImfBean(content);
-				String id=((JDBean)bean).getShopID();
-				String det=((JDBean)bean).getDeteil_url();
-				String titlt=((JDBean)bean).getTitle();
-				System.out.println(titlt);
-				bean=det.compareTo("null")!=0?JDFactory.getInstance().configShopCommentBean(JDCrawler.creatTBCrawler().searchComment(id, "1"),bean):null;
-				if(bean!=null)
+	}
+
+	private static void JDTest() {
+		List<String> contents = JDCrawler.creatTBCrawler().searchObject("ï¿½ï¿½");
+		for (String content : contents) {
+
+			ShopBean bean = JDFactory.getInstance().createShopImfBean(content);
+			String id = ((JDBean) bean).getShopID();
+			String det = ((JDBean) bean).getDeteil_url();
+			String titlt = ((JDBean) bean).getTitle();
+			System.out.println(titlt);
+			bean = det.compareTo("null") != 0 ? JDFactory.getInstance()
+					.configShopCommentBean(
+							JDCrawler.creatTBCrawler().searchComment(id, "1"),
+							bean) : null;
+			if (bean != null)
 				bean.getComments();
-			}
-			
 		}
-		private static void TBTest() {
-			TBCrawler crawler=TBCrawler.creatTBCrawler();
-		    List<String> contents= crawler.searchObject("ÒÂ·þ");
-		    System.out.println("tb");
-			for (String content : contents) {
-				
-				ShopBean bean=TBFactory.getInstance().createShopImfBean(content);
-				 String id=((TBBean)bean).getShop_ID();
-				 String sellerID=((TBBean)bean).getSeller_ID();
-				 String title=((TBBean)bean).getRaw_Title();
-				 System.out.println(title);
-			}
-		  
+
+	}
+
+	private static void TBTest() {
+		TBCrawler crawler = TBCrawler.creatTBCrawler();
+		List<String> contents = crawler.searchObject("ï¿½Â·ï¿½");
+		System.out.println("tb");
+		for (String content : contents) {
+
+			ShopBean bean = TBFactory.getInstance().createShopImfBean(content);
+			String id = ((TBBean) bean).getShop_ID();
+			String sellerID = ((TBBean) bean).getSeller_ID();
+			String title = ((TBBean) bean).getRaw_Title();
+			System.out.println(title);
 		}
+
+	}
 
 }

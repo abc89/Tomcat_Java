@@ -10,57 +10,66 @@ import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
 import com.opensymphony.xwork2.ActionSupport;
 
-
 /**
  * ��½���� ����
+ * 
  * @author e7691
- *
+ * 
  */
 public class GoLogin extends ActionSupport {
 	private String msg;
-    private String type;
-    private String userName;
-    private String password;
-    public String getUsername() {
+	private String type;
+	private String userName;
+	private String password;
+
+	public String getUsername() {
 		return userName;
 	}
-  
-    public void setUsername(String userName) {
+
+	public void setUsername(String userName) {
 		this.userName = userName;
-	}	
+	}
 
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String Password) {
 		this.password = Password;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
 	public String getMsg() {
 		return msg;
 	}
+
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	
-	public String execute() throws Exception {	
-		System.out.println(userName+"  and "+password);
-		DBDefine loginDf=new DBDefine(new DfineConfig().configClientType(type).configUserName(userName).configPassword(password));
-		boolean flag=loginDf.checkLogin();
-			if(flag){
-			         loginDf.getBean();
-					HttpSession session = ServletActionContext.getRequest().getSession();
-					session.setAttribute("user",loginDf.getBean());
-					session.setMaxInactiveInterval(600);		//����Session�Ĺ���ʱ��Ϊ10����
-					
-				return SUCCESS;
-				}
-			msg="登陆失败";
-			return INPUT;
+
+	public String execute() throws Exception {
+		System.out.println(userName + "  and " + password);
+		DBDefine loginDf = new DBDefine(new DfineConfig()
+				.configClientType(type).configUserName(userName)
+				.configPassword(password));
+		boolean flag = loginDf.checkLogin();
+		if (flag) {
+			loginDf.getBean();
+			HttpSession session = ServletActionContext.getRequest()
+					.getSession();
+			session.setAttribute("user", loginDf.getBean());
+			session.setMaxInactiveInterval(600); // ����Session�Ĺ���ʱ��Ϊ10����
+
+			return SUCCESS;
+		}
+		msg = "登陆失败";
+		return INPUT;
 	}
 }

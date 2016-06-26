@@ -8,20 +8,22 @@ import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
 import com.myweb.define.Login;
 import com.opensymphony.xwork2.ActionSupport;
+
 /***
- * ¸öÈË¼ÍÂ¼ µ±×÷ÏìÓ¦
+ * ï¿½ï¿½ï¿½Ë¼ï¿½Â¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦
+ * 
  * @author e7691
- *
+ * 
  */
 public class WriteArticleAc extends ActionSupport {
-	
-	//´¦ÀíÓÃ»§ÇëÇó execute·½·¨
-	public String execute() throws Exception {	
-			if(Login.isLogin()){
-			        
-				return SUCCESS;
-				}
-		
-			return INPUT;
+
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ executeï¿½ï¿½ï¿½ï¿½
+	public String execute() throws Exception {
+		if (Login.isLogin()) {
+
+			return SUCCESS;
+		}
+
+		return INPUT;
 	}
 }

@@ -16,131 +16,139 @@ import org.jdom.output.XMLOutputter;
 
 import com.databases.DSConfigBean;
 import com.exception.DataBaseConfigPathError;
+
 /**
- * xml ÅäÖÃÎÄ¼þ¶ÁÐ´²Ù×÷
+ * xml ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
+ * 
  * @author e7691
- *
+ * 
  */
 public class XmlOperate {
 	/**
 	 * 
-	 * @param rpath ÎÄ¼þÂ·¾¶
-	 * @param nodeName xml½ÚµãÃû
-	 * @return 
-	 * @throws DataBaseConfigPathError Êý¾Ý¿âÅäÖÃÎÄ¼þÒì³£ ²»´æÔÚ 
+	 * @param rpath
+	 *            ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+	 * @param nodeName
+	 *            xmlï¿½Úµï¿½ï¿½ï¿½
+	 * @return
+	 * @throws DataBaseConfigPathError
+	 *             ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ì³£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
-	public List<String> readNodeValues(String rpath,String nodeName) throws DataBaseConfigPathError
-	 {
-		List<String> strings=new ArrayList<String>();
-	  FileInputStream fi = null;
-	  java.io.File file=new java.io.File(rpath);
-	  if(!file.exists()){
-		  throw new DataBaseConfigPathError(DataBaseConfigPathError.PATH_NOT_EXISTS,rpath);
-	  }
-	  try
-	  {
-	   fi=new FileInputStream(rpath);//¶ÁÈ¡Â·¾¶ÎÄ¼þ
-	   SAXBuilder sb=new SAXBuilder();
-	   Document doc=sb.build(fi);
-	   Element root=doc.getRootElement();//»ñÈ¡¸ù½Úµã
-	   Element cs=root.getChild("configaction");//»ñÈ¡ ×Ó½Úµã Ã¿¸ö½Úµã pool ÎªÒ»¸öÁ´½Ó³ØÅäÖÃ
-	   List pools=cs.getChildren();
-	   Element pool=null;
-	   Iterator allPool=pools.iterator();
-	  if(allPool.hasNext())
-	   {
-	    pool=(Element)allPool.next();
-	    
-	  // System.out.println(pool.getText());
-	    if(pool.getChild(nodeName)!=null){	    	
-	    	strings.add(pool.getChild(nodeName).getText());
-	    }
-	   }
-	   
-	  } catch (FileNotFoundException e) {  
-	   e.printStackTrace();
-	  } catch (JDOMException e) {
-	   e.printStackTrace();
-	  } catch (IOException e) {
-	   e.printStackTrace();
-	  }
-	  
-	  finally
-	  {
-	   try {
-	    fi.close();
-	   } catch (IOException e) {
-	    e.printStackTrace();
-	   }
-	  }
-	  
-	  return strings;
-	 }
+	public List<String> readNodeValues(String rpath, String nodeName)
+			throws DataBaseConfigPathError {
+		List<String> strings = new ArrayList<String>();
+		FileInputStream fi = null;
+		java.io.File file = new java.io.File(rpath);
+		if (!file.exists()) {
+			throw new DataBaseConfigPathError(
+					DataBaseConfigPathError.PATH_NOT_EXISTS, rpath);
+		}
+		try {
+			fi = new FileInputStream(rpath);// ï¿½ï¿½È¡Â·ï¿½ï¿½ï¿½Ä¼ï¿½
+			SAXBuilder sb = new SAXBuilder();
+			Document doc = sb.build(fi);
+			Element root = doc.getRootElement();// ï¿½ï¿½È¡ï¿½ï¿½Úµï¿½
+			Element cs = root.getChild("configaction");// ï¿½ï¿½È¡ ï¿½Ó½Úµï¿½ Ã¿ï¿½ï¿½ï¿½Úµï¿½ pool
+														// ÎªÒ»ï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½
+			List pools = cs.getChildren();
+			Element pool = null;
+			Iterator allPool = pools.iterator();
+			if (allPool.hasNext()) {
+				pool = (Element) allPool.next();
 
-	private static List<Element> elements=new ArrayList<Element>();
-	/**
-	 *  »º´æ ¸üÐÂÎÄÕÂ Î´ ¸üÐÂµ½ÎÄÕÂxmlÎÄ±¾ ¿ÉÍ¨¹ýflush() ¸üÐÂÈë»º´æ
-	 * @param id
-	 * @param nodeName ½ÚµãÃû ²»¿ÉÊý×Ö
-	 * @param value
-	 */
-	 public static void addArticleXml(String id,String nodeName,String value) {
-	
-	  
-	  //Ìí¼ÓÐÂÔªËØ
-	  Element element = new Element("article");
-	  element.setAttribute("id",id);
-	  Element element1 = new Element(nodeName);
-	  element1.setText(value);
-	  element.addContent(element1);	
-	  elements.add(element);
-	 }
-	 public static void flush(String fileName){
-		 try {
-				
-			 if(elements.isEmpty()){
-				 System.out.println("»º´æÎÄÕÂ Îª¿Õ");
-				 return;
-			 }
-		  SAXBuilder builder = new SAXBuilder();
-		  Document doc = builder.build(fileName);//»ñµÃÎÄµµ¶ÔÏó
-		  Element root = doc.getRootElement();//»ñµÃ¸ù½Úµã
-		  int size=elements.size();
-		  for(int i=0;i<size;i++){
-			  Element element=elements.get(i);
-			  System.out.println(element.getName());
-			  root.addContent(element);
-		  }
-		  doc.setRootElement(root);
-		  
-		  //ÎÄ¼þ´¦Àí
-		  XMLOutputter out = new XMLOutputter();
-			out.output(doc, new FileOutputStream(fileName));
-			elements.clear();
-		 } catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// System.out.println(pool.getText());
+				if (pool.getChild(nodeName) != null) {
+					strings.add(pool.getChild(nodeName).getText());
+				}
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		finally {
+			try {
+				fi.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JDOMException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	 }
-	 //¸ù¾ÝIDÖµÉ¾³ýÒ»¸ö½Úµã
-	 public static void deletePerson(int id) throws JDOMException, IOException {
-	  SAXBuilder builder = new SAXBuilder();
-	  FileInputStream file = new FileInputStream("src/xml/po.xml");
-	  Document doc = builder.build(file);//»ñµÃÎÄµµ¶ÔÏó
-	  Element root = doc.getRootElement();//»ñµÃ¸ù½Úµã
-	  List<Element> list = root.getChildren();
-	  for(Element e:list) {
-	   //»ñÈ¡IDÖµ
-	   if(Integer.parseInt(e.getAttributeValue("id"))==id) {
-	    root.removeContent(e);
-	    break;//??
-	   }
-	  }
-	 }
+		}
+
+		return strings;
+	}
+
+	private static List<Element> elements = new ArrayList<Element>();
+
+	/**
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Î´ ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½xmlï¿½Ä±ï¿½ ï¿½ï¿½Í¨ï¿½ï¿½flush() ï¿½ï¿½ï¿½ï¿½ï¿½ë»ºï¿½ï¿½
+	 * 
+	 * @param id
+	 * @param nodeName
+	 *            ï¿½Úµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param value
+	 */
+	public static void addArticleXml(String id, String nodeName, String value) {
+
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
+		Element element = new Element("article");
+		element.setAttribute("id", id);
+		Element element1 = new Element(nodeName);
+		element1.setText(value);
+		element.addContent(element1);
+		elements.add(element);
+	}
+
+	public static void flush(String fileName) {
+		try {
+
+			if (elements.isEmpty()) {
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Îªï¿½ï¿½");
+				return;
+			}
+			SAXBuilder builder = new SAXBuilder();
+			Document doc = builder.build(fileName);// ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
+			Element root = doc.getRootElement();// ï¿½ï¿½Ã¸ï¿½Úµï¿½
+			int size = elements.size();
+			for (int i = 0; i < size; i++) {
+				Element element = elements.get(i);
+				System.out.println(element.getName());
+				root.addContent(element);
+			}
+			doc.setRootElement(root);
+
+			// ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+			XMLOutputter out = new XMLOutputter();
+			out.output(doc, new FileOutputStream(fileName));
+			elements.clear();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JDOMException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	// ï¿½ï¿½ï¿½IDÖµÉ¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Úµï¿½
+	public static void deletePerson(int id) throws JDOMException, IOException {
+		SAXBuilder builder = new SAXBuilder();
+		FileInputStream file = new FileInputStream("src/xml/po.xml");
+		Document doc = builder.build(file);// ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
+		Element root = doc.getRootElement();// ï¿½ï¿½Ã¸ï¿½Úµï¿½
+		List<Element> list = root.getChildren();
+		for (Element e : list) {
+			// ï¿½ï¿½È¡IDÖµ
+			if (Integer.parseInt(e.getAttributeValue("id")) == id) {
+				root.removeContent(e);
+				break;// ??
+			}
+		}
+	}
 }

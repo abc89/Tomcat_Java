@@ -1,40 +1,52 @@
 package com.myweb.bean;
+
 /**
- * ÓÃ»§ÆÀ ÂÛÊý¾ÝÄ£ÐÍ
+ * ï¿½Ã»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+ * 
  * @author e7691
- *
+ * 
  */
 public class CommentBean {
-  private String id;
-  private String fenShu;
-  private String content;
-  /**
-   * 
-   * @param id ÓÃ»§id
-   * @param fenShu ÓÃ»§ÆÀ·Ö·ÖÊý
-   * @param content ÓÃ»§ÆÀ¼ÛÄÚÈÝ
-   */
-  public CommentBean(String id,String fenShu,String content){
-	  this.fenShu=fenShu;
-	  this.id=id;
-	  this.content=content;
-  }
-  public String getId() {
-	return id;
-}
-public void setId(String id) {
-	this.id = id;
-}
-public String getFenShu() {
-	return fenShu;
-}
-public void setFenShu(String fenShu) {
-	this.fenShu = fenShu;
-}
-public String getContent() {
-	return content;
-}
-public void setContent(String content) {
-	this.content = content;
-}
+	private String id;
+	private String fenShu;
+	private String content;
+
+	/**
+	 * 
+	 * @param id
+	 *            ï¿½Ã»ï¿½id
+	 * @param fenShu
+	 *            ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+	 * @param content
+	 *            ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 */
+	public CommentBean(String id, String fenShu, String content) {
+		this.fenShu = fenShu;
+		this.id = id;
+		this.content = content;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getFenShu() {
+		return fenShu;
+	}
+
+	public void setFenShu(String fenShu) {
+		this.fenShu = fenShu;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 }

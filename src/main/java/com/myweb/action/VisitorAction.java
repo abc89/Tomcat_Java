@@ -15,48 +15,46 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.xml.XmlOperate;
 
 public class VisitorAction extends ActionSupport {
-//    private String type;
-//	private String id;
-//	private String arFilePath="./source/xml/test.xml";
-//    public boolean update=true;//©ьжф╦Эпб йг╥Яспндуб╦Эпб сптРжьпбоРйЩ╬щ©Б ╩Ях║вНпбндубпео╒
-//	public String getType() {
-//		return type;
-//	}
-//	public void setType(String type) {
-//		this.type = type;
-//	}
-//	
-//	//╢╕юМсц╩╖гКгС execute╥╫╥╗
-//	public String execute() throws Exception {	
-//
-//		    ArticleList articleList=  new ArticleDao().getAllFirst();
-//			updateArticleList(articleList);
-//			return SUCCESS;
-//
-//	}
-//	/**
-//	 * ╦Эпб╧╚╧╡ ндуб д©б╪об ндубап╠М
-//	 * @param articleList йЩ╬щ©БвНпбндубпео╒
-//	 */
-//	private void updateArticleList(ArticleList articleList) {
-//	     if(arFilePath!=null){
-//	    	  File file=new File(arFilePath);
-//	    	  if(file.exists()){
-//	    		  int size=articleList.size();
-//	    		  for(int i=0;i<size;i++){
-//	    			  ArticleBean bean=articleList.getIndex(i);
-//	    			  XmlOperate.addArticleXml(Integer.toString(i),"name"+bean.getId(),bean.getContent());
-//	    			//  System.out.println(bean.getContent());
-//	    		      
-//	    		  }
-//	    		  XmlOperate.flush("./source/xml/test.xml");
-//	    	  }else{
-//	    		  throw new NullPointerException("д©б╪об ц╩сп╤тс╕ ндубнд╪Ч");
-//	    	  }
-//	     }
-//	}
+	// private String type;
+	// private String id;
+	// private String arFilePath="./source/xml/test.xml";
+	// public boolean update=true;//О©╫О©╫О©╫ф╦О©╫О©╫О©╫ О©╫г╥О©╫О©╫О©╫О©╫О©╫О©╫б╦О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫щ©О©╫
+	// О©╫О©╫х║О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒
+	// public String getType() {
+	// return type;
+	// }
+	// public void setType(String type) {
+	// this.type = type;
+	// }
+	//
+	// //О©╫О©╫О©╫О©╫О©╫ц╩О©╫О©╫О©╫О©╫О©╫ executeО©╫О©╫О©╫О©╫
+	// public String execute() throws Exception {
+	//
+	// ArticleList articleList= new ArticleDao().getAllFirst();
+	// updateArticleList(articleList);
+	// return SUCCESS;
+	//
+	// }
+	// /**
+	// * О©╫О©╫О©╫б╧О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ д©б╪О©╫О©╫ О©╫О©╫О©╫О©╫О©╫п╠О©╫
+	// * @param articleList О©╫О©╫щ©О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒
+	// */
+	// private void updateArticleList(ArticleList articleList) {
+	// if(arFilePath!=null){
+	// File file=new File(arFilePath);
+	// if(file.exists()){
+	// int size=articleList.size();
+	// for(int i=0;i<size;i++){
+	// ArticleBean bean=articleList.getIndex(i);
+	// XmlOperate.addArticleXml(Integer.toString(i),"name"+bean.getId(),bean.getContent());
+	// // System.out.println(bean.getContent());
+	//
+	// }
+	// XmlOperate.flush("./source/xml/test.xml");
+	// }else{
+	// throw new NullPointerException("д©б╪О©╫О©╫ ц╩О©╫п╤О©╫с╕ О©╫О©╫О©╫О©╫О©╫д╪О©╫");
+	// }
+	// }
+	// }
 
-	
 }
-
-

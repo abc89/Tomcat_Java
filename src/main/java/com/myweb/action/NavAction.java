@@ -3,14 +3,16 @@ package com.myweb.action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /***
- * µ¼º½À¸
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * 
  * @author e7691
- *
+ * 
  */
 public class NavAction extends ActionSupport {
 	private String type;
-	private String game="game";
-	private String posts="posts";
+	private String game = "game";
+	private String posts = "posts";
+
 	public String getType() {
 		return type;
 	}
@@ -21,15 +23,14 @@ public class NavAction extends ActionSupport {
 
 	public String execute() throws Exception {
 		System.out.println(type);
-		if(type.compareTo("game")==0){
+		if (type.compareTo("game") == 0) {
 			return game;
-		}
-		else if(type.compareTo("posts")==0){			
+		} else if (type.compareTo("posts") == 0) {
 			return posts;
-		}else{
+		} else {
 			return INPUT;
 		}
-		
+
 	}
 
 }

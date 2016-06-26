@@ -1,22 +1,30 @@
 package com.myweb.exception;
+
 /***
- * »ñÈ¡action ¶ÔÓ¦ ÏàÓ¦ Â·¾¶  Òì³£Àà
+ * ï¿½ï¿½È¡action ï¿½ï¿½Ó¦ ï¿½ï¿½Ó¦ Â·ï¿½ï¿½ ï¿½ì³£ï¿½ï¿½
+ * 
  * @author e7691
- *
+ * 
  */
 public class ActionConfigException extends Exception {
 	public static final int CONFIGERROR_OR_NOACTION = 1;
 	public static final int NOACTIONAME = 0;
-    private String errorMsg=null;
-    public ActionConfigException(int errorType,String msg){
-    	switch(errorType){
-    	case CONFIGERROR_OR_NOACTION:errorMsg="ÅäÖÃÎÄ¼þ´íÎó :ÅäÖÃ·½Ê½´íÎó»òactionÓëaction-urlÎ´Åä¶Ô"+msg;break;
-    	case  NOACTIONAME: errorMsg="ÅäÖÃÎÄ¼þ ²»´æÔÚ¸Ãaction/action-url½ÚµãÃû"+msg;break;
-    	}
-    }
+	private String errorMsg = null;
+
+	public ActionConfigException(int errorType, String msg) {
+		switch (errorType) {
+		case CONFIGERROR_OR_NOACTION:
+			errorMsg = "ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ :ï¿½ï¿½ï¿½Ã·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½actionï¿½ï¿½action-urlÎ´ï¿½ï¿½ï¿½" + msg;
+			break;
+		case NOACTIONAME:
+			errorMsg = "ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½action/action-urlï¿½Úµï¿½ï¿½ï¿½" + msg;
+			break;
+		}
+	}
+
 	public void printStackTrace() {
 		System.out.println(errorMsg);
 		super.printStackTrace();
 	}
-    
+
 }

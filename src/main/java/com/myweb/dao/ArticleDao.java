@@ -16,28 +16,33 @@ import com.myweb.bean.Bean;
 import com.myweb.dao.impl.ArticleDaoImpl;
 import com.myweb.db.DataBaseOperate;
 import com.myweb.db.DataBaseOperateException;
+
 /***
  * 文章存储
+ * 
  * @author e7691
- *
+ * 
  */
 public class ArticleDao implements ArticleDaoImpl {
-	     private String TABLENAME="article";
-	     private String ID="article_ID";
-	     private String ARTICLECONTENT="article_Content";
-	     private String ARTICLETITLE="article_Title";
-	     private String ADMINID="admin_ID";
-	     private String ARTICLEDEC="article_DEc";
-    /**
-     * builder a bean by database ResultSet
-     * @param rs java.sql.ResultSet
-     * @return bean instance of ArticleBean
-     */
+	private String TABLENAME = "article";
+	private String ID = "article_ID";
+	private String ARTICLECONTENT = "article_Content";
+	private String ARTICLETITLE = "article_Title";
+	private String ADMINID = "admin_ID";
+	private String ARTICLEDEC = "article_DEc";
+
+	/**
+	 * builder a bean by database ResultSet
+	 * 
+	 * @param rs
+	 *            java.sql.ResultSet
+	 * @return bean instance of ArticleBean
+	 */
 	protected Bean builderBean(ResultSet rs) {
-		ArticleBean bean=null;
+		ArticleBean bean = null;
 		try {
-			bean=new ArticleBean();
-		    bean.configBean(rs);
+			bean = new ArticleBean();
+			bean.configBean(rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,36 +50,36 @@ public class ArticleDao implements ArticleDaoImpl {
 		return bean;
 	}
 
-
-	
 	public ArticleBean getArticle(String id) {
-		ArticleBean bean=new ArticleBean();
+		ArticleBean bean = new ArticleBean();
 		String sql = bean.getWhereIDSql(id);
 		Statement stat = null;
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
 			Context initContext = new InitialContext();
-			   DataSource ds  = (DataSource)initContext.lookup("java:/comp/env/jdbc/MySQLDS");
-			//ds = (DataSource)envContext.lookup("jdbc/TestDB");
-		conn = ds.getConnection();
+			DataSource ds = (DataSource) initContext
+					.lookup("java:/comp/env/jdbc/MySQLDS");
+			// ds = (DataSource)envContext.lookup("jdbc/TestDB");
+			conn = ds.getConnection();
 		} catch (Exception e1) {
-			
+
 			e1.printStackTrace();
-		};
+		}
+		;
 		try {
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			if (rs.next()) {
-		      bean=(ArticleBean)this.builderBean(rs);
-			
+				bean = (ArticleBean) this.builderBean(rs);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				if (conn != null)
-					 conn.close();
+					conn.close();
 				if (stat != null)
 					stat.close();
 				if (rs != null)
@@ -87,33 +92,35 @@ public class ArticleDao implements ArticleDaoImpl {
 	}
 
 	public ArticleList getAllDec() {
-		ArticleList articleList=new ArticleList();
-		String sql = "select * from "+TABLENAME;
+		ArticleList articleList = new ArticleList();
+		String sql = "select * from " + TABLENAME;
 		Statement stat = null;
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
 			Context initContext = new InitialContext();
-			   DataSource ds  = (DataSource)initContext.lookup("java:/comp/env/jdbc/MySQLDS");
-			//ds = (DataSource)envContext.lookup("jdbc/TestDB");
-		conn = ds.getConnection();
+			DataSource ds = (DataSource) initContext
+					.lookup("java:/comp/env/jdbc/MySQLDS");
+			// ds = (DataSource)envContext.lookup("jdbc/TestDB");
+			conn = ds.getConnection();
 		} catch (Exception e1) {
-			
+
 			e1.printStackTrace();
-		};
+		}
+		;
 		try {
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			while (rs.next()) {
-		     ArticleBean bean=(ArticleBean)this.builderBean(rs);
-			articleList.add(bean);
+				ArticleBean bean = (ArticleBean) this.builderBean(rs);
+				articleList.add(bean);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				if (conn != null)
-                   conn.close();
+					conn.close();
 				if (stat != null)
 					stat.close();
 				if (rs != null)
@@ -124,6 +131,5 @@ public class ArticleDao implements ArticleDaoImpl {
 		}
 		return articleList;
 	}
-
 
 }

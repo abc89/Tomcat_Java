@@ -11,58 +11,69 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class PhoneYZLogin extends ActionSupport {
 	private String phoneYZ;
-    private String type;
-    private String userName;
-    private String password;
-    public String getUsername() {
+	private String type;
+	private String userName;
+	private String password;
+
+	public String getUsername() {
 		return userName;
 	}
-    /***
-     * setUserName   Name ´óÐ´N ´íÎó
-     */
-//	public void setUserName(String userName) {
-//		this.userName = userName;
-//	}
-    /***
-     * setUsername   Name Ð¡Ð´n ÕýÈ·
-     */
-    public void setUsername(String userName) {
+
+	/***
+	 * setUserName Name ï¿½ï¿½Ð´N ï¿½ï¿½ï¿½ï¿½
+	 */
+	// public void setUserName(String userName) {
+	// this.userName = userName;
+	// }
+	/***
+	 * setUsername Name Ð¡Ð´n ï¿½ï¿½È·
+	 */
+	public void setUsername(String userName) {
 		this.userName = userName;
-	}	
+	}
 
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String Password) {
 		this.password = Password;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public void setType(String phoneYZ) {
 		this.type = type;
 	}
+
 	public String getPhoneYZ() {
 		return phoneYZ;
 	}
+
 	public void setPhoneYZ(String phoneYZ) {
 		this.phoneYZ = phoneYZ;
 	}
-	//´¦ÀíÓÃ»§ÇëÇó execute·½·¨
-	public String execute() throws Exception {	
-		YZDefine loginDf=new YZDefine(new DfineConfig().configClientType(type).configUserName(userName).configPassword(password).configYzContent(phoneYZ));
-		boolean flag=loginDf.checkLogin();
-			if(flag){
-			
-					System.out.println("µÇÂ½³É¹¦");
-					HttpSession session = ServletActionContext.getRequest().getSession();
-					session.setAttribute("userName","abc");
-					session.setAttribute("sessionId", "123123");
-					session.setMaxInactiveInterval(600);		//ÉèÖÃSessionµÄ¹ýÆÚÊ±¼äÎª10·ÖÖÓ
-				return SUCCESS;
-				}
-			
-			//µÇÂ½´íÎó
-			return INPUT;
+
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ executeï¿½ï¿½ï¿½ï¿½
+	public String execute() throws Exception {
+		YZDefine loginDf = new YZDefine(new DfineConfig()
+				.configClientType(type).configUserName(userName)
+				.configPassword(password).configYzContent(phoneYZ));
+		boolean flag = loginDf.checkLogin();
+		if (flag) {
+
+			System.out.println("ï¿½ï¿½Â½ï¿½É¹ï¿½");
+			HttpSession session = ServletActionContext.getRequest()
+					.getSession();
+			session.setAttribute("userName", "abc");
+			session.setAttribute("sessionId", "123123");
+			session.setMaxInactiveInterval(600); // ï¿½ï¿½ï¿½ï¿½Sessionï¿½Ä¹ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Îª10ï¿½ï¿½ï¿½ï¿½
+			return SUCCESS;
+		}
+
+		// ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½
+		return INPUT;
 	}
 }

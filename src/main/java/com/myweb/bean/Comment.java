@@ -1,9 +1,11 @@
 package com.myweb.bean;
+
 /**
- * ÉÌÆ·ÆÀÂÛ
+ * ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+ * 
  * @author e7691
- *
+ * 
  */
-public interface Comment  {
+public interface Comment {
 
 }

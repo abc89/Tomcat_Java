@@ -4,71 +4,85 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ArticleBean extends Bean {
-	     /**
-	      * ÎÄÕÂ±í½á¹¹
-	      */
-	     private static String TABLENAME="article";
-	     private static String ID="article_ID";
-	     private static String ARTICLECONTENT="article_Content";
-	     private static String ARTICLETITLE="article_Title";
-	     private static String ADMINID="admin_ID";//Íâ¼ü£º ·¢±íÎÄÕÂÓÃ»§ID
-	     private static String ARTICLEDEC="article_DEc";
-	
-	     private String id;
-	     private String title;
-	     private String dec;
-	     private String content;
-	     
-	   public String getId() {
-			return id;
-		}
-		public void setId(String id) {
-			this.id = id;
-		}
-		public String getTitle() {
-			return title;
-		}
-		public void setTitle(String title) {
-			this.title = title;
-		}
-		public String getDec() {
-			return dec;
-		}
-		public void setDec(String dec) {
-			this.dec = dec;
-		}
-		public String getContent() {
-			return content;
-		}
-		public void setContent(String content) {
-			this.content = content;
-		}
-		public ArticleBean(){
-		  
-	  }
-	  /**
-	   * 
-	   * @param id ÓÃ»§id
-	   * @param fenShu ÓÃ»§ÆÀ·Ö·ÖÊý
-	   * @param content ÓÃ»§ÆÀ¼ÛÄÚÈÝ
-	 * @throws SQLException 
-	   */
-	  public void configBean(ResultSet rs) throws SQLException{
-			setId(rs.getString(ID));
-            setContent(rs.getString(ARTICLECONTENT));
-	        setDec(rs.getString(ARTICLEDEC));
-	        setTitle(rs.getString(ARTICLETITLE));
-	  }
-	
-	private void show() {
-	System.out.println(id+dec);
+	/**
+	 * ï¿½ï¿½ï¿½Â±ï¿½á¹¹
+	 */
+	private static String TABLENAME = "article";
+	private static String ID = "article_ID";
+	private static String ARTICLECONTENT = "article_Content";
+	private static String ARTICLETITLE = "article_Title";
+	private static String ADMINID = "admin_ID";// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ID
+	private static String ARTICLEDEC = "article_DEc";
+
+	private String id;
+	private String title;
+	private String dec;
+	private String content;
+
+	public String getId() {
+		return id;
 	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDec() {
+		return dec;
+	}
+
+	public void setDec(String dec) {
+		this.dec = dec;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public ArticleBean() {
+
+	}
+
+	/**
+	 * 
+	 * @param id
+	 *            ï¿½Ã»ï¿½id
+	 * @param fenShu
+	 *            ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+	 * @param content
+	 *            ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @throws SQLException
+	 */
+	public void configBean(ResultSet rs) throws SQLException {
+		setId(rs.getString(ID));
+		setContent(rs.getString(ARTICLECONTENT));
+		setDec(rs.getString(ARTICLEDEC));
+		setTitle(rs.getString(ARTICLETITLE));
+	}
+
+	private void show() {
+		System.out.println(id + dec);
+	}
+
 	public String getType() {
 		// TODO Auto-generated method stub
 		return Bean.ARTICLE;
 	}
+
 	public String getWhereIDSql(String id2) {
-		String sql = "select * from "+TABLENAME+" where "+ID+"=" + id2;
+		String sql = "select * from " + TABLENAME + " where " + ID + "=" + id2;
 		return sql;
 	}
 }

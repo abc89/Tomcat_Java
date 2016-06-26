@@ -8,20 +8,23 @@ import com.myweb.dao.AdminDao;
 
 public class YZDefine implements LoginDefine {
 	private DfineConfig config;
+
 	public YZDefine(DfineConfig config) {
-		this.config=config;
+		this.config = config;
 	}
+
 	public boolean checkLogin() {
-		if(!checkYZ(config.getYzContent())){
+		if (!checkYZ(config.getYzContent())) {
 			return false;
 		}
-		boolean ok=new DBDefine(config).checkLogin();		
-	    return ok;
+		boolean ok = new DBDefine(config).checkLogin();
+		return ok;
 	}
+
 	private boolean checkYZ(String yzContent) {
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		String ys=session.getAttribute("YZContent").toString();
-		if(yzContent.compareTo(ys)==0){
+		String ys = session.getAttribute("YZContent").toString();
+		if (yzContent.compareTo(ys) == 0) {
 			return true;
 		}
 		return false;
