@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<configaction>
+		<actionconfig>
+			qqq
+			<action>test1</action>
+			<action-url>123this</action-url>
+		</actionconfig>
+		<actionconfig>
+			<action>test2</action>
+			<action-url>123123</action-url>
+		</actionconfig>
+		<actionconfig>
+			<action>test2</action>
+			<action-url>123213123</action-url>
+		</actionconfig>
+	</configaction>
+</config>

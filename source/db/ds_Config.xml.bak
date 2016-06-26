@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<pool>
+		<type>mysql</type>
+		<name>poolname</name>
+		<driver>com.mysql.jdbc.Driver</driver>
+		<url>jdbc:mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/jbossews</url>
+		<username>adminpFF5huE</username>
+		<password>M8mhqNgMvCxh</password>
+		<maxconn>10</maxconn>
+		<minconn>5</minconn>
+	</pool>
+</config>
+

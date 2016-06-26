@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="filterConfig" extends="struts-default" namespace="/">
+		<action name="GoLogin" class="com.myweb.action.GoLogin">
+			<result name="input">/login.jsp</result>
+			<result name="success">/login_ok.jsp</result>
+			<!-- <result name="success">/index2.jsp</result> -->
+		</action>
+		<action name="RegistAc" class="com.myweb.action.RegistAction">
+			<result name="input">/regist.jsp</result>
+			<result name="success">/login.jsp</result>
+			<!-- <result name="success">/index2.jsp</result> -->
+		</action>
+		<action name="ArticleAction" class="com.myweb.action.ArticleAction">
+			<result name="input">/article.jsp</result>
+			<result name="articleContent">/articleContent.jsp</result>
+			<result name="success">/article.jsp</result>
+			<!-- <result name="success">/index2.jsp</result> -->
+		</action>
+		<action name="TestAction" class="com.myweb.action.TestAction">
+			<result name="input">/login.jsp</result>
+			<result name="articleContent">/articleContent.jsp</result>
+			<result name="success">/test.jsp</result>
+			<!-- <result name="success">/index2.jsp</result> -->
+		</action>
+			<action name="RecAction" class="com.myweb.action.RecommendAc">
+			<result name="input">/login.jsp</result>
+			<result name="articleContent">/articleContent.jsp</result>
+			<result name="success">/rec.jsp</result>
+			<!-- <result name="success">/index2.jsp</result> -->
+		</action>
+		<action name="WriteArticleAc" class="com.myweb.action.WriteArticleAc">
+			<result name="input">/home.jsp</result>
+			<result name="success">/home.jsp</result>
+			<!-- <result name="success">/index2.jsp</result> -->
+		</action>
+		<action name="VisitorAction" class="com.myweb.action.VisitorAction">
+			<result name="input">/article.jsp</result>
+			<result name="success">/article.jsp</result>
+			<!-- <result name="success">/index2.jsp</result> -->
+		</action>
+	</package>
+	<!--  <package name="navigation" extends="struts-default" namespace="/">
+		<action name="NavAction" class="com.myweb.action.NavAction">
+			<result name="input">/navigation.jsp</result>
+			<result name="game">/game.jsp</result>
+			<result name="posts">/posts.jsp</result>
+		</action>
+	</package>-->
+</struts>    
