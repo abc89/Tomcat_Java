@@ -38,7 +38,7 @@ margin :80px;
 					<a href="ArticleAction.action?type=data">文章</a>
 				</li>
 				<li>
-					<a href="WriteArticleAc.action">写日记</a>
+					<a href="writeArticle.jsp">写日记</a>
 				</li>
 				<li class="nav-header">
 					功能
@@ -51,16 +51,8 @@ margin :80px;
 				</li>
 				<li class="divider">
 				</li>
-				<li>
-					<a href="#">开始新文章</a>
-				</li>
-				<li>
-					<a href="#">资料</a>
-				</li>
-				<li>
-					<a href="#">设置</a>
-				</li>
-			</ul> <span class="label">文字标签</span>
+			
+			</ul> <span class="label"></span>
 			
 		</div>
 	</div>

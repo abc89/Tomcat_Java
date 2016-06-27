@@ -8,10 +8,11 @@ import org.apache.struts2.ServletActionContext;
 import com.myweb.dao.AdminDao;
 import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
+import com.myweb.define.Login;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * ��½���� ����
+ * 登陆处理
  * 
  * @author e7691
  * 
@@ -55,6 +56,10 @@ public class GoLogin extends ActionSupport {
 	}
 
 	public String execute() throws Exception {
+		if(Login.isLogin()){
+			msg="已登陆";
+			return INPUT;
+		}
 		System.out.println(userName + "  and " + password);
 		DBDefine loginDf = new DBDefine(new DfineConfig()
 				.configClientType(type).configUserName(userName)

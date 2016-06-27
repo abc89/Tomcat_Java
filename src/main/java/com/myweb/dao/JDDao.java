@@ -25,6 +25,7 @@ public class JDDao implements ShopDaoImpl {
 	private String imgUrl = "imgUrl";
 	private String goodCount = "goodCount";
 	private String itemID = "itemID";
+	private  DataBaseOperate baseOperate=DataBaseOperate.getInstance();
     /**
      * delete item by key
      * @param where table key
@@ -33,15 +34,8 @@ public class JDDao implements ShopDaoImpl {
 	public void Delete(String where, String value) {
 		String sql = "delete " + TABLENAME + " where ";
 		sql += where + "=" + value;
-		Statement stat = null;
-		ResultSet rs = null;
-		try {
-			Connection conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			stat.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		baseOperate.execute(sql);
+
 	}
     /**
      * get items like search
@@ -52,23 +46,9 @@ public class JDDao implements ShopDaoImpl {
 		List<JDBean> beans = new ArrayList<JDBean>();
 		String sql = "select * from " + TABLENAME + " where " + type + "='"
 				+ search + "'";
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
+		
 		try {
-			Context initContext = new InitialContext();
-			DataSource ds = (DataSource) initContext
-					.lookup("java:/comp/env/jdbc/MySQLDS");
-			// ds = (DataSource)envContext.lookup("jdbc/TestDB");
-			conn = ds.getConnection();
-		} catch (Exception e1) {
-
-			e1.printStackTrace();
-		}
-		;
-		try {
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			ResultSet rs = baseOperate.select(sql);
 			while (rs.next()) {
 				JDBean bean = this.builderBean(rs);
 				// boolean flag=false;
@@ -88,18 +68,7 @@ public class JDDao implements ShopDaoImpl {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (conn != null)
-					conn.close();
-				if (stat != null)
-					stat.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		return beans;
 	}
 
@@ -137,17 +106,7 @@ public class JDDao implements ShopDaoImpl {
 				+ bean.getPrice() + "','" + bean.getTitle() + "','"
 				+ bean.getImg_url() + "','" + bean.getGoodCount() + "'";
 		sql += ")";
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
-		try {
-			System.out.println(sql);
-			conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			stat.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		baseOperate.execute(sql);
 	}
 
 }

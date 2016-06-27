@@ -19,44 +19,32 @@ import com.myweb.db.DataBaseOperate;
 import com.myweb.db.DataBaseOperateException;
 
 /**
- * 数据库操作 填充 bean
  * 
+ * 身份验证 数据库数据操作
  * @author e7691
  * 
  */
 public abstract class DefineDao implements DefineDaoImpl {
 	private Bean bean;
 	protected boolean hasBuilder = false;// true 结果集构建 bean
-
+    private DataBaseOperate baseOperate=DataBaseOperate.getInstance();
 	protected boolean select(String sql) {
 		boolean ok = false;
 		hasBuilder = false;
-		System.out.println("sql" + sql);
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
-		try {
-			Context initContext = new InitialContext();
-			DataSource ds = (DataSource) initContext
-					.lookup("java:/comp/env/jdbc/MySQLDS");
-			// ds = (DataSource)envContext.lookup("jdbc/TestDB");
-			conn = ds.getConnection();
-			// conn = DataBaseOperate.getConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-			if (rs.next()) {
-				// 子类补充功能，填充结果集 ，返回填充的bean
-				bean = toBuilderBean(rs);
-				if (bean != null) {
-					hasBuilder = true;
+			ResultSet rs =baseOperate.select(sql);
+			try {
+				if (rs.next()) {
+					// 子类补充功能，填充结果集 ，返回填充的bean
+					bean = toBuilderBean(rs);
+					if (bean != null) {
+						hasBuilder = true;
+					}
 				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException ex) {
-		}
+	
 
 		return ok;
 
@@ -83,21 +71,9 @@ public abstract class DefineDao implements DefineDaoImpl {
 		boolean ok = false;
 		String sql = getHasOneSql(key);
 		System.out.println("sql" + sql);
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
+		
 		try {
-			Context initContext = new InitialContext();
-			DataSource ds = (DataSource) initContext
-					.lookup("java:/comp/env/jdbc/MySQLDS");
-			conn = ds.getConnection();
-			// conn = DataBaseOperate.getConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			ResultSet rs = baseOperate.select(sql);
 			if (rs.next()) {
 				ok = definePassword(value, rs);
 				if (ok)

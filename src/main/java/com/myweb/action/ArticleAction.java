@@ -1,6 +1,7 @@
 package com.myweb.action;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,7 +9,10 @@ import org.apache.struts2.ServletActionContext;
 
 import com.myweb.bean.ArticleBean;
 import com.myweb.bean.ArticleList;
+import com.myweb.bean.JDBean;
+import com.myweb.bean.UserBean;
 import com.myweb.dao.ArticleDao;
+import com.myweb.dao.JDDao;
 import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
 import com.myweb.define.Login;
@@ -24,49 +28,67 @@ import com.xml.XmlOperate;
  */
 public class ArticleAction extends ActionSupport {
 	private String id;
+	//article 
+	private String title;//article title
+	private String dec;//article description
+	private String content;//article content
+	
+	//
 	private String arFilePath = "./source/xml/test.xml";
 	public boolean update = true;// 控制更新 是否有文章更新 有则重新向数据库 获取最新文章信息
+	//action type
 	private String type;
-	private String returnAc;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setType(String t) {
-		this.type = t;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setId(String Id) {
-		this.id = Id;
-	}
-
+    private final String  allArticle="data";
+    private final String  selectArticle="content";
+    private final String  insertArticle="insert";
+    private String returnAc;
+    private String msg;
+ 
 	public String execute() throws Exception {
+	
+            switch (type) {
+			case allArticle: showAllArt();break;
+			case selectArticle:showSelectArt();break;
+			case insertArticle:insertNewArt();break;
+			default:returnAc=INPUT;break;
+			}
+            return returnAc;
+	}
 
-		if (type.compareTo("data") == 0) {
-			System.out.println("获取所有文章描述");
-			ArticleList articleList = new ArticleDao().getAllDec();
-			// updateArticleList(articleList);
-			HttpSession session = ServletActionContext.getRequest()
-					.getSession();
-			session.setAttribute("articleList", articleList);
-			return SUCCESS;
-		} else if (type.compareTo("content") == 0) {
-			System.out.println("获取单篇文章");
-			ArticleBean bean = new ArticleDao().getArticle(id);
-			HttpSession session = ServletActionContext.getRequest()
-					.getSession();
-			session.setAttribute("articlebean", bean);
-			returnAc = "articleContent";
-			return returnAc;
-		}
+	private void insertNewArt() {
+		 if(!Login.isLogin()){
+			 returnAc=INPUT;
+			  return;
+		  }
+		boolean ok=title!=null&&content!=null&&dec!=null&&title.compareTo("")!=0&&content.compareTo("")!=0&&dec.compareTo("")!=0;
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		UserBean bean = (UserBean) session.getAttribute("user");
+		String id = bean.getID();
+		if(ok)new ArticleDao().insertArticle(title, dec, content,id);
+		returnAc= "backWriteArticle";
+		msg= ok?"添加新文章成功":"添加文章失败";
+	}
 
-		// 登陆错误
-		return INPUT;
+	private void showSelectArt() {
+		System.out.println("获取单篇文章");
+		ArticleBean bean = new ArticleDao().getArticle(id);
+		HttpSession session = ServletActionContext.getRequest()
+				.getSession();
+		session.setAttribute("articlebean", bean);
+		returnAc = "articleContent";
+		
+	}
+
+	private void showAllArt() {
+		// TODO Auto-generated method stub
+		System.out.println("获取所有文章描述");
+		ArticleList articleList = new ArticleDao().getAllDec();
+		// updateArticleList(articleList);
+		HttpSession session = ServletActionContext.getRequest()
+				.getSession();
+		session.setAttribute("articleList", articleList);
+		returnAc=SUCCESS;
+		
 	}
 
 	/**
@@ -93,5 +115,55 @@ public class ArticleAction extends ActionSupport {
 			}
 		}
 	}
+	/***
+	 * 以下为 注入 配置方法
+	 * 
+	 */
+	  public String getMsg() {
+			return msg;
+		}
+
+		public void setMsg(String msg) {
+			this.msg = msg;
+		}
+
+		public String getTitle() {
+	    	return title;
+	    }
+	    
+	    public void setTitle(String title) {
+	    	this.title = title;
+	    }
+	    
+	    public String getDec() {
+	    	return dec;
+	    }
+	    
+	    public void setDec(String dec) {
+	    	this.dec = dec;
+	    }
+	    
+	    public String getContent() {
+	    	return content;
+	    }
+	    
+	    public void setContent(String content) {
+	    	this.content = content;
+	    }
+		public String getId() {
+			return id;
+		}
+
+		public void setType(String t) {
+			this.type = t;
+		}
+
+		public String getType() {
+			return type;
+		}
+
+		public void setId(String Id) {
+			this.id = Id;
+		}
 
 }

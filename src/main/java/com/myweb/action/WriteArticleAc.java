@@ -8,22 +8,20 @@ import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
 import com.myweb.define.Login;
 import com.opensymphony.xwork2.ActionSupport;
-
 /***
- * ���˼�¼ ������Ӧ
- * 
+ * self article
  * @author e7691
- * 
+ *
  */
 public class WriteArticleAc extends ActionSupport {
-
-	// �����û����� execute����
-	public String execute() throws Exception {
-		if (Login.isLogin()) {
-
-			return SUCCESS;
-		}
-
-		return INPUT;
+	
+	//处理用户请求 execute方法
+	public String execute() throws Exception {	
+			if(Login.isLogin()){
+			        
+				return SUCCESS;
+				}
+		
+			return INPUT;
 	}
 }

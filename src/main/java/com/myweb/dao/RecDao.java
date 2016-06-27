@@ -22,21 +22,13 @@ public class RecDao {
 	private String TABLENAME = "lovetable";
 	private String userID = "userID";
 	private String love = "love";
-	String splite = "splite";
-
+	private String splite = "splite";
+    private DataBaseOperate baseOperate=DataBaseOperate.getInstance();
 	// 删除
 	public void Delete(String where, String value) {
 		String sql = "delete " + TABLENAME + " where ";
 		sql += where + "=" + value;
-		Statement stat = null;
-		ResultSet rs = null;
-		try {
-			Connection conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			stat.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		DataBaseOperate.getInstance().execute(sql);
 	}
 
 	public List<JDBean> getRecBeans(String id) {
@@ -44,41 +36,15 @@ public class RecDao {
 		String sql = "select * from " + TABLENAME + " where " + userID + "='"
 				+ id + "'";
 		System.out.println("查询推荐" + sql);
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
 		try {
-			Context initContext = new InitialContext();
-			DataSource ds = (DataSource) initContext
-					.lookup("java:/comp/env/jdbc/MySQLDS");
-			// ds = (DataSource)envContext.lookup("jdbc/TestDB");
-			conn = ds.getConnection();
-		} catch (Exception e1) {
-
-			e1.printStackTrace();
-		}
-		;
-		try {
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			ResultSet rs=baseOperate.select(sql);
 			if (rs.next()) {
 				System.out.println(rs.getString(love));
 				beans = getLoveBeans(rs.getString(love));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (conn != null)
-					conn.close();
-				if (stat != null)
-					stat.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		return beans;
 	}
 
@@ -125,31 +91,8 @@ public class RecDao {
 		// sql += PASSWORD+"='" + cnbean.getPassword() + "',";
 		sql += " where " + userID + "='" + id + "'";
 		System.out.println(sql);
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
-		try {
-			Context initContext = new InitialContext();
-			DataSource ds = (DataSource) initContext
-					.lookup("java:/comp/env/jdbc/MySQLDS");
-			// ds = (DataSource)envContext.lookup("jdbc/TestDB");
-			conn = ds.getConnection();
-			stat = conn.createStatement();
-			stat.executeUpdate(sql);
-		} catch (SQLException | NamingException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (conn != null)
-					// DBConnectionManager.getInstance().freeConnection(conn);
-					if (stat != null)
-						stat.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		baseOperate.execute(sql);
+		
 	}
 
 	private String getLove(String id) {
@@ -157,23 +100,8 @@ public class RecDao {
 		String sql = "select * from " + TABLENAME + " where " + userID + "='"
 				+ id + "'";
 		System.out.println("查询推荐" + sql);
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
 		try {
-			Context initContext = new InitialContext();
-			DataSource ds = (DataSource) initContext
-					.lookup("java:/comp/env/jdbc/MySQLDS");
-			// ds = (DataSource)envContext.lookup("jdbc/TestDB");
-			conn = ds.getConnection();
-		} catch (Exception e1) {
-
-			e1.printStackTrace();
-		}
-		;
-		try {
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			ResultSet rs = baseOperate.select(sql);
 			if (rs.next()) {
 				System.out.println(rs.getString(this.love));
 				nlove = rs.getString(love);
@@ -182,18 +110,7 @@ public class RecDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (conn != null)
-					conn.close();
-				if (stat != null)
-					stat.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		return nlove;
 	}
 
@@ -206,15 +123,7 @@ public class RecDao {
 			sql += "'" + uID + "'";
 			sql += ")";
 			System.out.println(sql);
-			Statement stat = null;
-			ResultSet rs = null;
-			try {
-				Connection conn = DataBaseOperate.getConnection();
-				stat = conn.createStatement();
-				stat.executeUpdate(sql);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			 baseOperate.execute(sql);
 		}
 	}
 

@@ -27,7 +27,7 @@ margin :80px;
 }
 else{
 	UserBean user=(UserBean)session.getAttribute("user");
-	 out.println("<div class='col-lg-6'>"+
+	 out.println("<div class='col-lg-6'><h4>猜猜您喜欢什么商品</h4>"+
 				"<h4>用户"+user.getUserName()+"猜您喜欢：</h4>"+
 	"<p></p></div>");
 	List<JDBean> list=(List<JDBean>)session.getAttribute("jdbeans");
@@ -53,7 +53,7 @@ else{
 					<a href="ArticleAction.action?type=data">文章</a>
 				</li>
 				<li>
-					<a href="WriteArticleAc.action">写日记</a>
+					<a href="writeArticle.jsp">写日记</a>
 				</li>
 				<li class="nav-header">
 					功能
@@ -66,16 +66,8 @@ else{
 				</li>
 				<li class="divider">
 				</li>
-				<li>
-					<a href="#">开始新文章</a>
-				</li>
-				<li>
-					<a href="#">资料</a>
-				</li>
-				<li>
-					<a href="#">设置</a>
-				</li>
-			</ul> 
+			
+			</ul> <span class="label"></span>
 		</div>
 	</div>
 </div>

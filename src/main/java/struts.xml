@@ -13,8 +13,9 @@
 			<!-- <result name="success">/index2.jsp</result> -->
 		</action>
 		<action name="ArticleAction" class="com.myweb.action.ArticleAction">
-			<result name="input">/article.jsp</result>
+			<result name="input">/login.jsp</result>
 			<result name="articleContent">/articleContent.jsp</result>
+			<result name="backWriteArticle">/writeArticle.jsp</result>
 			<result name="success">/article.jsp</result>
 			<!-- <result name="success">/index2.jsp</result> -->
 		</action>
@@ -26,15 +27,10 @@
 		</action>
 			<action name="RecAction" class="com.myweb.action.RecommendAc">
 			<result name="input">/login.jsp</result>
-			<result name="articleContent">/articleContent.jsp</result>
 			<result name="success">/rec.jsp</result>
 			<!-- <result name="success">/index2.jsp</result> -->
 		</action>
-		<action name="WriteArticleAc" class="com.myweb.action.WriteArticleAc">
-			<result name="input">/home.jsp</result>
-			<result name="success">/home.jsp</result>
-			<!-- <result name="success">/index2.jsp</result> -->
-		</action>
+		
 		<action name="VisitorAction" class="com.myweb.action.VisitorAction">
 			<result name="input">/article.jsp</result>
 			<result name="success">/article.jsp</result>

@@ -21,16 +21,6 @@ public class Comment extends ActionSupport {
 	public String getUsername() {
 		return fenshu;
 	}
-
-	/***
-	 * setUserName Name 大写N 错误
-	 */
-	// public void setUserName(String userName) {
-	// this.userName = userName;
-	// }
-	/***
-	 * setUsername Name 小写n 正确
-	 */
 	public void setFenshu(String fenshu) {
 		this.fenshu = fenshu;
 	}

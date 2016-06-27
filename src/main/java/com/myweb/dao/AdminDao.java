@@ -16,7 +16,6 @@ import com.myweb.db.DataBaseOperateException;
  */
 public class AdminDao extends DefineDao {
 	// 管理员 表 键名
-
 	private String TABLENAME = "admin";
 	private String ID = "admin_ID";
 	private String USERNAME = "admin_User_Name";
@@ -25,50 +24,22 @@ public class AdminDao extends DefineDao {
 	private String SEX = "admin_Sex";
 	private String TEL = "admin_Tel";
 	private String DEC = "admin_Dec";
-
+    private DataBaseOperate baseOperate=DataBaseOperate.getInstance();
 	public AdminDao() {
 		System.out.println("adminDao");
 	}
 
-	// 验证登录
+	/**
+	 * identify user
+	 * @param userName the enter username
+	 * @param passeord  the enter password
+	 */
 	@Override
 	public boolean hasUser(String userName, String password) {
 		super.hasOne(userName, password);
 		return super.hasOne(userName, password);
 	}
 
-	// 获取列表
-	public List<AdminBean> finsList(String strwhere, String strorder) {
-		String sql = "select * from " + TABLENAME;
-		if (!(isInvalid(strwhere))) {
-			sql += " where " + strwhere;
-		}
-		if (!(isInvalid(strorder))) {
-			sql += " order by " + strorder;
-		}
-		Statement stat = null;
-		ResultSet rs = null;
-		List<AdminBean> list = new ArrayList<AdminBean>();
-		try {
-			Connection conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-			while (rs.next()) {
-				AdminBean cnbean = new AdminBean();
-				cnbean.setID(rs.getInt(ID));
-				cnbean.setUserName(rs.getString(USERNAME));
-				// cnbean.setPassword(rs.getString(PASSWORD));
-				cnbean.setSex(rs.getString(SEX));
-				cnbean.setTel(rs.getString(TEL));
-				cnbean.setDec(rs.getString(DEC));
-				cnbean.setName(rs.getString(NAME));
-				list.add(cnbean);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
 
 	/**
 	 * 
@@ -78,15 +49,9 @@ public class AdminDao extends DefineDao {
 	 */
 	public AdminBean createBean(int id) {
 		String sql = "select * from " + TABLENAME + " where " + ID + "=" + id;
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
-
 		AdminBean cnbean = new AdminBean();
 		try {
-			conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			ResultSet rs = baseOperate.select(sql);
 			while (rs.next()) {
 				cnbean = (AdminBean) this.builderBean(rs);
 			}
@@ -96,29 +61,11 @@ public class AdminDao extends DefineDao {
 		return cnbean;
 	}
 
-	// 添加
-	public void Add(AdminBean cnbean) {
-		String sql = "insert into " + TABLENAME + " (";
-		sql += USERNAME + "," + PASSWORD + "," + NAME + "," + SEX + "," + TEL
-				+ "," + DEC + "," + NAME;
-		sql += ") values(";
-		sql += "'" + cnbean.getUserName()
-				+ "','" // + cnbean.getPassword()
-				+ "','" + cnbean.getSex() + "','" + cnbean.getTel() + "'"
-				+ cnbean.getDec() + "'" + cnbean.getName() + "'";
-		sql += ")";
-		Statement stat = null;
-		ResultSet rs = null;
-		try {
-			Connection conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			stat.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+	
 
-	// 修改
+	/***
+	 * modify table 
+	 */
 	public boolean update(Bean bean) {
 		if (bean.getType().compareTo(Bean.VIPUSER) != 0) {
 			throw new ClassCastException();
@@ -132,20 +79,16 @@ public class AdminDao extends DefineDao {
 		sql += DEC + "='" + cnbean.getDec() + "'";
 		sql += NAME + "='" + cnbean.getName() + "'";
 		sql += " where " + ID + "='" + cnbean.getID() + "'";
-		Statement stat = null;
-		ResultSet rs = null;
-		try {
-			Connection conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			stat.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		Boolean ok=baseOperate.execute(sql);
+		return ok;
 	}
 
-	// 判断是否空值
+	/***
+	 * 
+	 * @param value 数据库 键对应 值 验证可效性
+	 * @return  true： 值有效
+	 *          false： 非有效值 不符合格式
+	 */
 	private boolean isInvalid(String value) {
 		return (value == null || value.length() == 0);
 	}
@@ -159,6 +102,10 @@ public class AdminDao extends DefineDao {
 		return sql;
 	}
 
+	/***
+	 * @param rs   call by parent class's template method
+	 * @return Bean  AdminBean instance
+	 */
 	@Override
 	protected Bean builderBean(ResultSet rs) {
 		super.hasBuilder(true);
@@ -180,7 +127,8 @@ public class AdminDao extends DefineDao {
 	}
 
 	/***
-	 * 
+	 * @return  a AdminBean
+	 * @throws NullPointerException if AdminBean  have not been created before
 	 */
 	@Override
 	public Bean getBean() {
@@ -190,14 +138,19 @@ public class AdminDao extends DefineDao {
 		}
 		return bean;
 	}
-
+    /***
+     * @param recPassword the user-entered password
+     * @param rs select admin information from admin table by the user-entered username
+     * @return boolean  true:Verify password through
+     *                  false: password error or username error lead to rs is null
+     */
 	@Override
 	protected boolean definePassword(String recPassword, ResultSet rs)
 			throws SQLException {
 		// 确认有该用户，为避免非法输入。
 		// 简单字符串比较
 		String truePassword = rs.getString("admin_User_Password");
-		if (recPassword.compareTo(truePassword) == 0) {
+		if (rs!=null&&recPassword.compareTo(truePassword) == 0) {
 			return true;
 
 		}

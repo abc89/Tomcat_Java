@@ -42,29 +42,24 @@ margin :80px;
 					<a href="home.jsp">首页</a>
 				</li>
 				<li>
-					<a href="ArticleAction.action?type=data">日记</a>
+					<a href="ArticleAction.action?type=data">文章</a>
 				</li>
 				<li>
-					<a href="#">写日记</a>
+					<a href="writeArticle.jsp">写日记</a>
 				</li>
 				<li class="nav-header">
 					功能
 				</li>
 				<li>
-					<a href="#">他人文章</a>
+					<a href="RecAction.action">查看推荐</a>
+				</li>
+				<li>
+						<a href="test.jsp">测试</a>
 				</li>
 				<li class="divider">
 				</li>
-				<li>
-					<a href="#">开始新文章</a>
-				</li>
-				<li>
-					<a href="#">资料</a>
-				</li>
-				<li>
-					<a href="#">设置</a>
-				</li>
-			</ul> <span class="label">文字标签</span>
+			
+			</ul> <span class="label"></span>
 			
 		</div>
 	</div>

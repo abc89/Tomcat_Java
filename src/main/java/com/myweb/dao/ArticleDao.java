@@ -13,6 +13,7 @@ import com.myweb.bean.AdminBean;
 import com.myweb.bean.ArticleBean;
 import com.myweb.bean.ArticleList;
 import com.myweb.bean.Bean;
+import com.myweb.bean.JDBean;
 import com.myweb.dao.impl.ArticleDaoImpl;
 import com.myweb.db.DataBaseOperate;
 import com.myweb.db.DataBaseOperateException;
@@ -30,7 +31,7 @@ public class ArticleDao implements ArticleDaoImpl {
 	private String ARTICLETITLE = "article_Title";
 	private String ADMINID = "admin_ID";
 	private String ARTICLEDEC = "article_DEc";
-
+    private DataBaseOperate baseOperate=DataBaseOperate.getInstance();
 	/**
 	 * builder a bean by database ResultSet
 	 * 
@@ -53,83 +54,52 @@ public class ArticleDao implements ArticleDaoImpl {
 	public ArticleBean getArticle(String id) {
 		ArticleBean bean = new ArticleBean();
 		String sql = bean.getWhereIDSql(id);
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
+		
 		try {
-			Context initContext = new InitialContext();
-			DataSource ds = (DataSource) initContext
-					.lookup("java:/comp/env/jdbc/MySQLDS");
-			// ds = (DataSource)envContext.lookup("jdbc/TestDB");
-			conn = ds.getConnection();
-		} catch (Exception e1) {
-
-			e1.printStackTrace();
-		}
-		;
-		try {
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			
+			ResultSet rs =baseOperate.select(sql);
 			if (rs.next()) {
 				bean = (ArticleBean) this.builderBean(rs);
 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (conn != null)
-					conn.close();
-				if (stat != null)
-					stat.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		return bean;
 	}
 
 	public ArticleList getAllDec() {
 		ArticleList articleList = new ArticleList();
-		String sql = "select * from " + TABLENAME;
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
+		String sql = "select * from " + TABLENAME;		
 		try {
-			Context initContext = new InitialContext();
-			DataSource ds = (DataSource) initContext
-					.lookup("java:/comp/env/jdbc/MySQLDS");
-			// ds = (DataSource)envContext.lookup("jdbc/TestDB");
-			conn = ds.getConnection();
-		} catch (Exception e1) {
-
-			e1.printStackTrace();
-		}
-		;
-		try {
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			ResultSet rs = baseOperate.select(sql);
 			while (rs.next()) {
 				ArticleBean bean = (ArticleBean) this.builderBean(rs);
 				articleList.add(bean);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (conn != null)
-					conn.close();
-				if (stat != null)
-					stat.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		return articleList;
+	}
+
+	/**
+	 * 添加新文章
+	 * *
+	 * @param userID **
+	 * 
+	 */
+	@Override
+	public void insertArticle(String titleT, String decT, String contentT, String userID) {
+		String sql = "insert into " + TABLENAME + " (";
+		sql += ARTICLETITLE + "," + ARTICLEDEC + "," + ARTICLECONTENT+ "," + ADMINID ;
+		sql += ") values(";
+		sql += "'" + titleT + "','" + decT + "','"
+				+ contentT + "','"+userID +"'";
+		sql += ")";
+		System.out.println(sql);
+		baseOperate.execute(sql);
+	
 	}
 
 }

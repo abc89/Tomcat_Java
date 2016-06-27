@@ -11,32 +11,42 @@ import com.myweb.db.DataBaseOperate;
 import com.myweb.db.DataBaseOperateException;
 
 /**
- * 管理员数据类型 对于该类 中生成的 bean子类 默认 adminBean
  * 
+ * 用户身份信息
  * @author e7691
  * 
  */
 public class UserDao extends DefineDao {
-	// 管理员 表 键名
-
-	private String TABLENAME = "user";
-	private String ID = "id";
+	/**
+	 * user table attribute
+	 */
+	private String TABLENAME = "user";//table name
+	private String ID = "id";// user id   primary
 	private String USERNAME = "user_name";
 	private String PASSWORD = "user_password";
-	private String registState = "null";
-
+	private String registState = "null";//regist state when new user regist
+    private DataBaseOperate baseOperate=DataBaseOperate.getInstance();
 	public UserDao() {
 		System.out.println("userdao");
 	}
 
-	// 验证登录
+	/***
+	 * new client regist
+	 * @param userName
+	 * @param password
+	 */
 	public boolean hasUser(String userName, String password) {
 		super.hasOne(userName, password);
 		return super.hasOne(userName, password);
 	}
 
-	// 获取列表
-	public List<UserBean> finsList(String strwhere, String strorder) {
+	/***
+	 * select from user table
+	 * @param strwhere search attribute
+	 * @param strorder value 
+	 * @return List<UserBean>
+	 */
+	private List<UserBean> finsList(String strwhere, String strorder) {
 		String sql = "select * from " + TABLENAME;
 		if (!(isInvalid(strwhere))) {
 			sql += " where " + strwhere;
@@ -44,22 +54,20 @@ public class UserDao extends DefineDao {
 		if (!(isInvalid(strorder))) {
 			sql += " order by " + strorder;
 		}
-		Statement stat = null;
-		ResultSet rs = null;
 		List<UserBean> list = new ArrayList<UserBean>();
-		try {
-			Connection conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-			while (rs.next()) {
-				UserBean cnbean = new UserBean();
-				cnbean.setID(rs.getString(ID));
-				cnbean.setUserName(rs.getString(USERNAME));
-				list.add(cnbean);
+		ResultSet	rs =baseOperate.select(sql);
+			try {
+				while (rs.next()) {
+					UserBean cnbean = new UserBean();
+					cnbean.setID(rs.getString(ID));
+					cnbean.setUserName(rs.getString(USERNAME));
+					list.add(cnbean);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 		return list;
 	}
 
@@ -71,14 +79,9 @@ public class UserDao extends DefineDao {
 	 */
 	public UserBean createBean(int id) {
 		String sql = "select * from " + TABLENAME + " where " + ID + "=" + id;
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
 		UserBean cnbean = new UserBean();
 		try {
-			conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			ResultSet rs = baseOperate.select(sql);
 			while (rs.next()) {
 				cnbean = (UserBean) this.builderBean(rs);
 			}
@@ -88,7 +91,10 @@ public class UserDao extends DefineDao {
 		return cnbean;
 	}
 
-	// 添加
+	/***
+	 * 新用户注册
+	 * @param cnbean 新用户注册 UserBean 实例
+	 */
 	public void Add(UserBean cnbean) {
 		String sql = "insert into " + TABLENAME + " (";
 		sql += USERNAME + "," + PASSWORD;
@@ -96,18 +102,12 @@ public class UserDao extends DefineDao {
 		sql += "'" + cnbean.getUserName() + "','" // + cnbean.getPassword()
 				+ "','" + cnbean.getPassword() + "'";
 		sql += ")";
-		Statement stat = null;
-		ResultSet rs = null;
-		try {
-			Connection conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			stat.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		baseOperate.execute(sql);
 	}
 
-	// 修改
+	/***
+	 * 修改用户信息
+	 */
 	public boolean update(Bean bean) {
 		if (bean.getType().compareTo(Bean.VIPUSER) != 0) {
 			throw new ClassCastException();
@@ -117,19 +117,16 @@ public class UserDao extends DefineDao {
 		sql += USERNAME + "='" + cnbean.getUserName() + "',";
 		// sql += PASSWORD+"='" + cnbean.getPassword() + "',";
 		sql += " where " + ID + "='" + cnbean.getID() + "'";
-		Statement stat = null;
-		try {
-			Connection conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			stat.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+		baseOperate.execute(sql);
 		return true;
 	}
 
-	// 判断是否空值
+	/***
+	 * 检验设置数据库某字段值 是否符合格式
+	 * @param value 属性对应值
+	 * @return true:符合
+	 *         false：不符合
+	 */
 	private boolean isInvalid(String value) {
 		return (value == null || value.length() == 0);
 	}
@@ -145,7 +142,10 @@ public class UserDao extends DefineDao {
 		System.out.println(sql);
 		return sql;
 	}
-
+	/***
+	 * @param rs   call by parent class's template method
+	 * @return Bean  UserBean instance
+	 */
 	@Override
 	protected Bean builderBean(ResultSet rs) {
 		super.hasBuilder(true);
@@ -198,24 +198,15 @@ public class UserDao extends DefineDao {
 		sql += ") values(";
 		sql += "'" + userName2 + "','" + password2 + "'";
 		sql += ")";
-		Statement stat = null;
-		ResultSet rs = null;
-		try {
-			Connection conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-
-			stat.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		 baseOperate.execute(sql);
 		return true;
 	}
 
 	private boolean check(String userName2, String password2) {
 		String regex = "[0-9A-Za-z_]*";
-		boolean ok = match(regex, password2);
+		boolean ok = match(regex, password2)&& match(regex, userName2)?true:false;
 		if (!ok) {
-			registState = "输入错误  只允许需输入字母数字 " + userName2;
+			registState = "输入错误  只允许需输入字母_数字_下划线 ";
 			return false;
 		}
 		boolean noHas = hasUsername(userName2);
@@ -231,22 +222,18 @@ public class UserDao extends DefineDao {
 	private boolean hasUsername(String userName2) {
 		String sql = "select * from " + TABLENAME + " where " + USERNAME + "='"
 				+ userName2 + "'";
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
-
-		UserBean cnbean = new UserBean();
 		try {
-			conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			
+			ResultSet rs = baseOperate.select(sql);
 			if (rs.next()) {
 				registState = "用户名已存在" + userName2;
 				return false;
 			}
 			// new RecDao().registNewLoveUser(getUserId(userName2));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			registState = "错误";
+			return false;
+			//e.printStackTrace();
 		}
 		return true;
 	}
@@ -255,15 +242,9 @@ public class UserDao extends DefineDao {
 		String id = null;
 		String sql = "select * from " + TABLENAME + " where " + USERNAME + "='"
 				+ userName2 + "'";
-		Statement stat = null;
-		ResultSet rs = null;
-		Connection conn = null;
-
 		UserBean cnbean = new UserBean();
 		try {
-			conn = DataBaseOperate.getConnection();
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
+			ResultSet rs = baseOperate.select(sql);
 			if (rs.next()) {
 				id = rs.getString(ID);
 			}

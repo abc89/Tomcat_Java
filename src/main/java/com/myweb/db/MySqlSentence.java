@@ -1,10 +1,10 @@
 package com.myweb.db;
 
 /**
- * mysql 语句生成工具类 不好用
+ * mysql 语句生成工具类
  * 
  * @author e7691
- * 
+ * @deprecated
  */
 public class MySqlSentence {
 	/*
