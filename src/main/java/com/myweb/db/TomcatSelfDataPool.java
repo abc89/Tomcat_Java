@@ -30,6 +30,7 @@ public class TomcatSelfDataPool implements DataBasePoolOp{
 			DataSource ds = (DataSource) initContext
 					.lookup(poolPath);
 			conn = ds.getConnection();
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

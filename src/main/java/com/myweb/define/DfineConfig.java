@@ -1,7 +1,15 @@
 package com.myweb.define;
 
+/**
+ * 验证信息 配置类
+ * @author e7691
+ *
+ */
 public class DfineConfig {
 	private String userName;
+	private String password;
+	private String clientType;
+	private String yzContent;
 
 	public String getUserName() {
 		return userName;
@@ -19,9 +27,6 @@ public class DfineConfig {
 		return yzContent;
 	}
 
-	private String password;
-	private String clientType;
-	private String yzContent;
 
 	public DfineConfig() {
 	}

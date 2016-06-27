@@ -6,6 +6,11 @@ import org.apache.struts2.ServletActionContext;
 
 import com.myweb.dao.AdminDao;
 
+/***
+ * 验证码登陆
+ * @author e7691
+ *
+ */
 public class YZDefine implements LoginDefine {
 	private DfineConfig config;
 

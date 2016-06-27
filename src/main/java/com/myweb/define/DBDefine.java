@@ -14,11 +14,16 @@ import com.myweb.dao.UserDao;
 public class DBDefine implements LoginDefine {
 	private DfineConfig config;
 	private Bean bean;
-
+    
 	public DBDefine(DfineConfig config) {
 		this.config = config;
 	}
 
+	/***
+	 * 验证登陆
+	 * @return true: logining success
+	 *          false: logining fail
+	 */
 	@Override
 	public boolean checkLogin() {
 		boolean ok = false;
@@ -39,7 +44,10 @@ public class DBDefine implements LoginDefine {
 		bean = ok == true ? dao.getBean() : null;
 		return ok;
 	}
-
+    /***
+     * 验证通过 可 获取 个人基本信息
+     * @return
+     */
 	public Bean getBean() {
 		return bean;
 	}

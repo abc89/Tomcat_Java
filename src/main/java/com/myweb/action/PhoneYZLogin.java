@@ -8,7 +8,11 @@ import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
 import com.myweb.define.YZDefine;
 import com.opensymphony.xwork2.ActionSupport;
-
+/***
+ * 验证方式
+ * @author e7691
+ *
+ */
 public class PhoneYZLogin extends ActionSupport {
 	private String phoneYZ;
 	private String type;
@@ -20,13 +24,8 @@ public class PhoneYZLogin extends ActionSupport {
 	}
 
 	/***
-	 * setUserName Name ��дN ����
-	 */
-	// public void setUserName(String userName) {
-	// this.userName = userName;
-	// }
-	/***
-	 * setUsername Name Сдn ��ȷ
+	 * 注入： 映射方法 需符合格式
+	 * 
 	 */
 	public void setUsername(String userName) {
 		this.userName = userName;
@@ -56,7 +55,9 @@ public class PhoneYZLogin extends ActionSupport {
 		this.phoneYZ = phoneYZ;
 	}
 
-	// �����û����� execute����
+	/***
+     * action 执行方法
+     */
 	public String execute() throws Exception {
 		YZDefine loginDf = new YZDefine(new DfineConfig()
 				.configClientType(type).configUserName(userName)

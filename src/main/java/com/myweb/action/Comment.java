@@ -9,15 +9,18 @@ import com.myweb.dao.CommentDao;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * comment.action 动作处理
- * 
+ * comment.action 
+ * 文章评论处理
  * @author e7691
  * 
  */
 public class Comment extends ActionSupport {
 	private String msg;
 	private String fenshu;
-
+	/***
+	 * 注入： 映射方法 需符合格式
+	 * 
+	 */
 	public String getUsername() {
 		return fenshu;
 	}

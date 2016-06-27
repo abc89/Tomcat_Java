@@ -43,7 +43,9 @@ public class ArticleAction extends ActionSupport {
     private final String  insertArticle="insert";
     private String returnAc;
     private String msg;
- 
+    /***
+     * action 执行方法
+     */
 	public String execute() throws Exception {
 	
             switch (type) {
@@ -54,7 +56,9 @@ public class ArticleAction extends ActionSupport {
 			}
             return returnAc;
 	}
-
+    /**
+     * 添加新文章
+     */
 	private void insertNewArt() {
 		 if(!Login.isLogin()){
 			 returnAc=INPUT;
@@ -68,7 +72,9 @@ public class ArticleAction extends ActionSupport {
 		returnAc= "backWriteArticle";
 		msg= ok?"添加新文章成功":"添加文章失败";
 	}
-
+    /***
+     * 显示单篇文章所有内容
+     */
 	private void showSelectArt() {
 		System.out.println("获取单篇文章");
 		ArticleBean bean = new ArticleDao().getArticle(id);
@@ -78,7 +84,9 @@ public class ArticleAction extends ActionSupport {
 		returnAc = "articleContent";
 		
 	}
-
+    /**
+     * 所有文章标题 及 简介
+     */
 	private void showAllArt() {
 		// TODO Auto-generated method stub
 		System.out.println("获取所有文章描述");
@@ -116,7 +124,7 @@ public class ArticleAction extends ActionSupport {
 		}
 	}
 	/***
-	 * 以下为 注入 配置方法
+	 * 以下为 注入 映射方法 需符合格式
 	 * 
 	 */
 	  public String getMsg() {

@@ -38,11 +38,6 @@ public class UserBean extends Bean {
 		return Bean.VIPUSER;
 	}
 
-	@Override
-	public void configBean(ResultSet rs) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public String getPassword() {
 		// TODO Auto-generated method stub

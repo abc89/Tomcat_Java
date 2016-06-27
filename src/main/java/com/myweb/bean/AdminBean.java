@@ -3,7 +3,7 @@ package com.myweb.bean;
 import java.sql.ResultSet;
 
 /**
- * ϵͳ������Ա ���ģ��
+ * 系统管理人员 数据模型
  * 
  * @author e7691
  * 
@@ -80,12 +80,6 @@ public class AdminBean extends Bean {
 
 	public void setDec(String dec) {
 		this.Admin_Dec = dec;
-	}
-
-	@Override
-	public void configBean(ResultSet rs) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

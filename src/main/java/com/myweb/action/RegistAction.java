@@ -10,6 +10,12 @@ import com.myweb.define.DfineConfig;
 import com.myweb.define.Login;
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * 注册 基本信息注册
+ * 注册验证方式
+ * @author e7691
+ *
+ */
 public class RegistAction extends ActionSupport {
 	private String msg;
 	private String type;
@@ -21,13 +27,8 @@ public class RegistAction extends ActionSupport {
 	}
 
 	/***
-	 * setUserName Name 大写N 错误
-	 */
-	// public void setUserName(String userName) {
-	// this.userName = userName;
-	// }
-	/***
-	 * setUsername Name 小写n 正确
+	 * 注入： 映射方法 需符合格式
+	 * 
 	 */
 	public void setUsername(String userName) {
 		this.userName = userName;
@@ -57,8 +58,11 @@ public class RegistAction extends ActionSupport {
 		this.msg = msg;
 	}
 
-	// 处理用户请求 execute方法
+	/***
+     * action 执行方法
+     */
 	public String execute() throws Exception {
+		 //判断是否登陆     Login 用户登录管理
 		if (!Login.isLogin()) {
 			UserDao dao = new UserDao();
 			boolean ok = dao.regist(userName, password);

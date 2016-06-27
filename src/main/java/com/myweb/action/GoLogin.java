@@ -18,11 +18,15 @@ import com.opensymphony.xwork2.ActionSupport;
  * 
  */
 public class GoLogin extends ActionSupport {
-	private String msg;
-	private String type;
+	private String msg;//登陆反馈，成功 or 失败
+	private String type;//登陆类型
 	private String userName;
 	private String password;
 
+	/***
+	 * 注入： 映射方法 需符合格式
+	 * 
+	 */
 	public String getUsername() {
 		return userName;
 	}

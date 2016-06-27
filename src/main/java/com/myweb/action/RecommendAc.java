@@ -33,7 +33,10 @@ public class RecommendAc extends ActionSupport {
 	public boolean update = true;// 控制更新 是否有文章更新 有则重新向数据库 获取最新文章信息
 	private String search;
 	private String returnAc;
-
+	/***
+	 * 注入： 映射方法 需符合格式
+	 * 
+	 */
 	public String getId() {
 		return id;
 	}
@@ -49,9 +52,11 @@ public class RecommendAc extends ActionSupport {
 	public void setId(String Id) {
 		this.id = Id;
 	}
-
+	/***
+     * action 执行方法
+     */
 	public String execute() throws Exception {
-
+         //判断是否登陆     Login 用户登录管理
 		if (Login.isLogin()) {
 			HttpSession session = ServletActionContext.getRequest()
 					.getSession();

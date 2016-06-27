@@ -93,6 +93,10 @@ public abstract class ShopBeanFactoryMB extends ShopBeanFactory {
 		}
 		return lists;
 	}
-
+     /**
+      * 子类延续
+      * @param maps 键 值 集合
+      * @return ShopBean
+      */
 	protected abstract ShopBean setBeanImf(HashMap<Integer, String> maps);
 }

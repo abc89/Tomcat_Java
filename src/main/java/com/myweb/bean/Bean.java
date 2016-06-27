@@ -24,5 +24,4 @@ public abstract class Bean {
 	 */
 	public abstract String getType();
 
-	public abstract void configBean(ResultSet rs) throws SQLException;
 }

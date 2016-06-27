@@ -84,10 +84,4 @@ public class CommonBean extends Bean {
 		this.common_name = name;
 	}
 
-	@Override
-	public void configBean(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
-
-	}
-
 }
