@@ -74,15 +74,11 @@ public class GMBean extends ShopBean {
 	}
 
 	@Override
-	public List<String> getComments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void configComment(List<String> list) {
 		// TODO Auto-generated method stub
-
+		
 	}
+
+	
 
 }

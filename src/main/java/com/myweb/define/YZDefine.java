@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.myweb.dao.AdminDao;
+import com.myweb.dao.impl.AdminDao;
 
 /***
  * 验证码登陆

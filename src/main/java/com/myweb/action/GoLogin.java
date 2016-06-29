@@ -5,7 +5,7 @@ import javax.servlet.jsp.jstl.core.Config;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.myweb.dao.AdminDao;
+import com.myweb.dao.impl.AdminDao;
 import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
 import com.myweb.define.Login;

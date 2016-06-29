@@ -14,9 +14,9 @@ import com.myweb.bean.JDBean;
 import com.myweb.bean.ShopBean;
 import com.myweb.bean.UserBean;
 import com.myweb.bean.factory.JDFactory;
-import com.myweb.dao.ArticleDao;
-import com.myweb.dao.JDDao;
-import com.myweb.dao.RecDao;
+import com.myweb.dao.impl.ArticleDao;
+import com.myweb.dao.impl.JDDao;
+import com.myweb.dao.impl.RecDao;
 import com.myweb.define.Login;
 import com.net.crawler.JDCrawler;
 import com.opensymphony.xwork2.ActionSupport;
@@ -103,7 +103,7 @@ public class TestAction extends ActionSupport {
 							bean) : null;
 			if (bean != null) {
 				((JDBean) bean).setShopType(search);
-				new JDDao().insertShop(bean);
+				new JDDao().insert(bean);
 				beans.add((JDBean) bean);
 			}
 		}

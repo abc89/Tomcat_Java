@@ -1,5 +1,5 @@
+<%@page import="com.myweb.bean.*"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="backGround.jsp"%>
 <html>
@@ -18,36 +18,27 @@ margin :80px;
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span8">
-			
-			<div class="pagination">
-				<%if (null==session.getAttribute("articleList")){
+			<div class="jumbotron well">
+				<%if (null==session.getAttribute("jdbeans")){
 	 out.println("<div class='col-lg-6'>"+
 				"<h4>sorry no any article</h4>"+
 	"<p>.......</p></div>");
 	//return;	
 }
 else{
-	ArticleList list=(ArticleList)session.getAttribute("articleList");
-	List<ArticleBean> lists=list.getList();
-	for(ArticleBean bean : lists){
-		 out.println("<div class='col-lg-6'>"+
-					"<h4><a href='ArticleAction.action?type=content&id="+bean.getId()+"'"+">"+bean.getTitle()+"       </a></h4>"+
-		"<p>"+bean.getDec()+"</p></div>");	
-	}
+	UserBean user=(UserBean)session.getAttribute("user");
+	 out.println("<div class='col-lg-6'><h4>商品介绍</h4>"+
+				"<h4>用户"+user.getUserName()+"您好：</h4>"+
+	"<p></p></div>");
+	List<ShopCommentBean> list=(List<ShopCommentBean>)session.getAttribute("commentbeans");
+	 for(int i=0;i<list.size();i++){
+		 ShopCommentBean bean=list.get(i);
+		 out.println("<h3>介绍："+bean.getContent()+"</h3></a></>");
+	 }
+	 list.clear();
 	}
 %>
-			</div>
-			<div class="pagination">
-				<ul>
-					<li>
-						<a href="#">上一页</a>
-					</li>
-					
-					<li>
-						<a href="ArticleAction.action?type=data">下一页</a>
-					</li>
-				</ul>
-			</div>
+</div>
 		</div>
 		<div class="span4">
 		<ul class="nav nav-list">
@@ -76,9 +67,9 @@ else{
 				</li>
 			
 			</ul> <span class="label"></span>
-			
 		</div>
 	</div>
 </div>
 </body>
+<%@ include file="foot.jsp"%>
 </html>

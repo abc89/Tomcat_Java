@@ -1,11 +1,19 @@
 package com.myweb.bean;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class ArticleList {
+/**
+ * 文章总列表
+ * 实现 Iterable 接口  
+ * @author e7691
+ *
+ */
+public class ArticleList implements Iterable<ArticleBean>{
+	
 	private static List<ArticleBean> articles = new ArrayList<ArticleBean>();
-
+	
 	public ArticleList() {
 		articles.clear();
 	}
@@ -44,4 +52,20 @@ public class ArticleList {
 	public ArticleBean getIndex(int index) {
 		return articles.get(index);
 	}
+
+	/***
+	 * 返回按适当顺序在列表的文章上进行迭代的迭代器
+	 */
+	@Override
+	public Iterator<ArticleBean> iterator() {
+		return articles.iterator();
+	}
+	/**
+	 * 返回文章总列表
+	 * @return
+	 */
+    public List<ArticleBean> getList(){
+    	return articles;
+    }
+
 }

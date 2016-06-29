@@ -8,11 +8,8 @@ import java.util.List;
  * @author e7691
  * 
  */
-public abstract class ShopBean implements Comment {
+public abstract class ShopBean {
 
 	public abstract String getShopType();
-
-	public abstract List<String> getComments();
-
 	public abstract void configComment(List<String> list);
 }

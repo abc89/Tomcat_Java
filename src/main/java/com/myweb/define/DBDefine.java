@@ -1,9 +1,9 @@
 package com.myweb.define;
 
 import com.myweb.bean.Bean;
-import com.myweb.dao.AdminDao;
-import com.myweb.dao.DefineDao;
-import com.myweb.dao.UserDao;
+import com.myweb.dao.impl.AdminDao;
+import com.myweb.dao.impl.DefineDao;
+import com.myweb.dao.impl.UserDao;
 
 /**
  * 数据库验证登陆

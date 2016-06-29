@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.myweb.dao.UserDao;
+import com.myweb.dao.impl.UserDao;
 import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
 import com.myweb.define.Login;

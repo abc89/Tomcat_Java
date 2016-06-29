@@ -53,8 +53,8 @@ public class ShopMain {
 					.configShopCommentBean(
 							JDCrawler.creatTBCrawler().searchComment(id, "1"),
 							bean) : null;
-			if (bean != null)
-				bean.getComments();
+//			if (bean != null)
+//				bean.getComments();
 		}
 
 	}

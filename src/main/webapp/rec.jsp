@@ -30,11 +30,11 @@ else{
 	 out.println("<div class='col-lg-6'><h4>猜猜您喜欢什么商品</h4>"+
 				"<h4>用户"+user.getUserName()+"猜您喜欢：</h4>"+
 	"<p></p></div>");
-	List<JDBean> list=(List<JDBean>)session.getAttribute("jdbeans");
+	 List<JDBean> list=(List<JDBean>)session.getAttribute("jdbeans");
 	 for(int i=0;i<list.size();i++){
 		 JDBean bean=list.get(i);
 		 out.println("<img alt='140x140' src='"+bean.getImg_url()+
-					"'/><h3>介绍："+bean.getTitle()+"</h3>"+"<h3>价格："+bean.getPrice()+"</h3>"+"<h3>好评数："+bean.getGoodCount()+"</h3>");
+					"'/><a href='ShopCommentAc.action?id="+bean.getShopID()+"'"+">"+"<h3>介绍："+bean.getTitle()+"</h3></a></>"+"<h3>价格："+bean.getPrice()+"</h3>"+"<h3>好评数："+bean.getGoodCount()+"</h3>");
 	 }
 	 list.clear();
 	}

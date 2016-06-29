@@ -14,8 +14,8 @@ import com.myweb.bean.JDBean;
 import com.myweb.bean.ShopBean;
 import com.myweb.bean.UserBean;
 import com.myweb.bean.factory.JDFactory;
-import com.myweb.dao.JDDao;
-import com.myweb.dao.RecDao;
+import com.myweb.dao.impl.JDDao;
+import com.myweb.dao.impl.RecDao;
 import com.myweb.define.Login;
 import com.net.crawler.JDCrawler;
 import com.opensymphony.xwork2.ActionSupport;
@@ -74,27 +74,7 @@ public class RecommendAc extends ActionSupport {
 		return INPUT;
 	}
 
-	private void uodataShopItem(String search2, List<JDBean> beans) {
-		List<String> contents = JDCrawler.creatTBCrawler()
-				.searchObject(search2);
-		for (String content : contents) {
-
-			ShopBean bean = (JDBean) JDFactory.getInstance().createShopImfBean(
-					content);
-			String id = ((JDBean) bean).getShopID();
-			String det = ((JDBean) bean).getDeteil_url();
-			bean = det.compareTo("null") != 0 ? JDFactory.getInstance()
-					.configShopCommentBean(
-							JDCrawler.creatTBCrawler().searchComment(id, "1"),
-							bean) : null;
-			if (bean != null) {
-				((JDBean) bean).setShopType(search);
-				new JDDao().insertShop(bean);
-				beans.add((JDBean) bean);
-			}
-		}
-	}
-
+	
 	/**
 	 * 更新公共 文章 目录下 文章列表
 	 * 

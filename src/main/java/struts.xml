@@ -12,6 +12,11 @@
 			<result name="success">/login.jsp</result>
 			<!-- <result name="success">/index2.jsp</result> -->
 		</action>
+		<action name="ShopCommentAc" class="com.myweb.action.ShopCommentAc">
+			<result name="input">/regist.jsp</result>
+			<result name="success">/shopDetail.jsp</result>
+			<!-- <result name="success">/index2.jsp</result> -->
+		</action>
 		<action name="ArticleAction" class="com.myweb.action.ArticleAction">
 			<result name="input">/login.jsp</result>
 			<result name="articleContent">/articleContent.jsp</result>

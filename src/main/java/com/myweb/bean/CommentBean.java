@@ -1,7 +1,7 @@
 package com.myweb.bean;
 
 /**
- * �û��� �����ģ��
+ * 用户评 论数据模型
  * 
  * @author e7691
  * 
@@ -14,11 +14,11 @@ public class CommentBean {
 	/**
 	 * 
 	 * @param id
-	 *            �û�id
+	 *            用户id
 	 * @param fenShu
-	 *            �û����ַ���
+	 *            用户评分分数
 	 * @param content
-	 *            �û���������
+	 *            用户评价内容
 	 */
 	public CommentBean(String id, String fenShu, String content) {
 		this.fenShu = fenShu;

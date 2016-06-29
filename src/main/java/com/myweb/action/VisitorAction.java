@@ -8,7 +8,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.myweb.bean.ArticleBean;
 import com.myweb.bean.ArticleList;
-import com.myweb.dao.ArticleDao;
+import com.myweb.dao.impl.ArticleDao;
 import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
 import com.opensymphony.xwork2.ActionSupport;

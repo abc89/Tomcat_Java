@@ -1,6 +1,7 @@
 package com.myweb.action;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,8 +12,8 @@ import com.myweb.bean.ArticleBean;
 import com.myweb.bean.ArticleList;
 import com.myweb.bean.JDBean;
 import com.myweb.bean.UserBean;
-import com.myweb.dao.ArticleDao;
-import com.myweb.dao.JDDao;
+import com.myweb.dao.impl.ArticleDao;
+import com.myweb.dao.impl.JDDao;
 import com.myweb.define.DBDefine;
 import com.myweb.define.DfineConfig;
 import com.myweb.define.Login;
@@ -91,6 +92,10 @@ public class ArticleAction extends ActionSupport {
 		// TODO Auto-generated method stub
 		System.out.println("获取所有文章描述");
 		ArticleList articleList = new ArticleDao().getAllDec();
+		Iterator<ArticleBean> iterators=articleList.iterator();
+		for (ArticleBean articleBean : articleList) {
+			
+		}
 		// updateArticleList(articleList);
 		HttpSession session = ServletActionContext.getRequest()
 				.getSession();

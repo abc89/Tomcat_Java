@@ -41,9 +41,10 @@ public class JDFactory extends ShopBeanFactoryMB {
 	private final int poorCount = 2;
 	private int name = 3;// 评论内容
 	// 评论匹配规则 数组
-	private String[] commentsT = new String[] { "\"goodCount\":.*?,",
-			"\"generalCount\":.*?,", "\"poorCount\":.*?,", "\"content\":.*?,",
-			"\"commentId\":.*?,", "\"score\":.*?,", "\"uid\":.*?," };
+//	private String[] commentsT = new String[] { "\"goodCount\":.*?,",
+//			"\"generalCount\":.*?,", "\"poorCount\":.*?,", "\"content\":.*?,",
+//			"\"commentId\":.*?,", "\"score\":.*?,", "\"uid\":.*?," };
+	private String[] commentsT = new String[] {  "\"content\":.*?,"};
 	private static JDFactory facy = new JDFactory();
 
 	private JDFactory() {

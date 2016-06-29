@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import com.myweb.bean.CommentBean;
-import com.myweb.dao.CommentDao;
+import com.myweb.dao.impl.CommentDao;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
