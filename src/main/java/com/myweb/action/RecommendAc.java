@@ -63,7 +63,7 @@ public class RecommendAc extends ActionSupport {
 			UserBean bean = (UserBean) session.getAttribute("user");
 			String id = bean.getID();
 			System.out.println("用户id" + id);
-			List<JDBean> beans = new RecDao().getRecBeans(id);
+			List<ShopBean> beans = new RecDao().getRecBeans(id);
 			if (!beans.isEmpty()) {
 				session.setAttribute("jdbeans", beans);
 				session.setAttribute("findrec", "ok");

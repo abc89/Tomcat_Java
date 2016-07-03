@@ -63,7 +63,7 @@ public class TestAction extends ActionSupport {
 			HttpSession session = ServletActionContext.getRequest()
 					.getSession();
 			System.out.println("获取所有文章描述");
-			List<JDBean> beans = new JDDao().getItemType(search);
+			List<ShopBean> beans = new JDDao().getItemType(search);
 			if (beans.isEmpty()) {
 				uodataShopItem(search, beans);
 
@@ -88,7 +88,7 @@ public class TestAction extends ActionSupport {
 		return search==null||search.compareTo("")==0?false:true;
 	}
 
-	private void uodataShopItem(String search2, List<JDBean> beans) {
+	private void uodataShopItem(String search2, List<ShopBean> beans) {
 		List<String> contents = JDCrawler.creatTBCrawler()
 				.searchObject(search2);
 		for (String content : contents) {
@@ -103,10 +103,10 @@ public class TestAction extends ActionSupport {
 							bean) : null;
 			if (bean != null) {
 				((JDBean) bean).setShopType(search);
-				new JDDao().insert(bean);
 				beans.add((JDBean) bean);
 			}
 		}
+		new JDDao().insert(beans);
 	}
 
 	/**

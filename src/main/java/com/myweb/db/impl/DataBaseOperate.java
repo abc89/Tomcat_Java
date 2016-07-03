@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -15,7 +16,10 @@ import com.myweb.db.DataBasePoolOp;
 
 /**
  * 数据库操作
+ * 但此处理
+ * 批量处理
  * 
+ * 待实现：orm ; xml and reflect
  * @author e7691
  * 
  */
@@ -49,18 +53,37 @@ public class DataBaseOperate {
 		return rs;
 	}
 	/***
-	 * 
+	 * 数据库批量执行 sql语句
+	 * @param sqls 批处理 sql语句列表
+	 * @return 处理成功 or 失败
+	 */
+	public boolean excuteBatch(List<String> sqls){
+		ResultSet rs = null;
+		try {
+			Connection conn = basePoolOp.getConnection();
+			Statement stat = conn.createStatement();
+			for (String query : sqls) {
+				stat.addBatch(query);
+			}
+			stat.executeBatch();
+			stat.close();
+			conn.close();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	/***
+	 * 数据库 单次 执行sql语句
 	 * @param sql sql语句
 	 * @return true:执行成功;
 	 *         false:执行失败，数据库链接异常 或 sql语句异常
 	 */
-	public Boolean execute(String sql) {
-		Statement stat = null;
+	public Boolean executeSingle(String sql) {
 		ResultSet rs = null;
-		Connection conn = null;
 		try {
-			conn = basePoolOp.getConnection();
-			stat = conn.createStatement();
+			Connection conn = basePoolOp.getConnection();
+			Statement stat = conn.createStatement();
 			stat.executeUpdate(sql);			
 		} catch (SQLException e) {
 			e.printStackTrace();

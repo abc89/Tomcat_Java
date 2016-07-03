@@ -10,7 +10,7 @@ import com.myweb.bean.ShopBean;
 import com.myweb.bean.ShopCommentBean;
 import com.myweb.dao.ShopComDaoIntf;
 import com.myweb.dao.ShopDao;
-import com.myweb.dao.ShopDaoIntf;
+import com.myweb.dao.ShopDaoInfo;
 import com.myweb.db.impl.DataBaseOperate;
 /***
  * 物品评论获取
@@ -36,7 +36,7 @@ public class JDCommentDao  extends ShopDao implements ShopComDaoIntf {
 		sql += "'" + bean.getContent() + "','" + bean.getShopId() + "'";
 		sql += ")";
 		System.out.println(sql);
-		baseOperate.execute(sql);
+		baseOperate.executeSingle(sql);
 	}
 
 	@Override
@@ -75,6 +75,12 @@ public class JDCommentDao  extends ShopDao implements ShopComDaoIntf {
 			e.printStackTrace();
 		}
 		return bean;
+	}
+
+	@Override
+	public void insert(List<ShopBean> beans) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -16,7 +16,7 @@ import com.myweb.bean.ShopCommentBean;
 import com.myweb.bean.UserBean;
 import com.myweb.bean.factory.JDFactory;
 import com.myweb.dao.ShopComDaoIntf;
-import com.myweb.dao.ShopDaoIntf;
+import com.myweb.dao.ShopDaoInfo;
 import com.myweb.dao.impl.JDCommentDao;
 import com.myweb.dao.impl.JDDao;
 import com.myweb.dao.impl.RecDao;

@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import com.myweb.bean.Bean;
 import com.myweb.bean.JDBean;
+import com.myweb.bean.ShopBean;
 import com.myweb.bean.UserBean;
 import com.myweb.db.impl.DataBaseOperate;
 import com.myweb.db.impl.DataBaseOperateException;
@@ -32,11 +33,11 @@ public class RecDao {
 	public void Delete(String where, String value) {
 		String sql = "delete " + TABLENAME + " where ";
 		sql += where + "=" + value;
-		DataBaseOperate.getInstance().execute(sql);
+		DataBaseOperate.getInstance().executeSingle(sql);
 	}
 
-	public List<JDBean> getRecBeans(String id) {
-		List<JDBean> beans = new ArrayList<JDBean>();
+	public List<ShopBean> getRecBeans(String id) {
+		List<ShopBean> beans = new ArrayList<ShopBean>();
 		String sql = "select * from " + TABLENAME + " where " + userID + "='"
 				+ id + "'";
 		System.out.println("查询推荐" + sql);
@@ -52,8 +53,8 @@ public class RecDao {
 		return beans;
 	}
 
-	private List<JDBean> getLoveBeans(String loves) {
-		List<JDBean> beans = new ArrayList<JDBean>();
+	private List<ShopBean> getLoveBeans(String loves) {
+		List<ShopBean> beans = new ArrayList<ShopBean>();
 		if (loves != null && loves.indexOf(splite) != -1) {
 			String lv = loves.substring(0, loves.length() - splite.length());
 			System.out.println(lv);
@@ -61,7 +62,7 @@ public class RecDao {
 				String[] ls = lv.split(splite);
 				for (String string : ls) {
 					JDDao dao=new JDDao();
-					List<JDBean> bs =dao.getItemType(string);
+					List<ShopBean> bs =dao.getItemType(string);
 					if (bs.size() > 2) {
 						beans.add(bs.get(0));
 						beans.add(bs.get(1));
@@ -70,7 +71,7 @@ public class RecDao {
 					}
 				}
 			} else {
-				List<JDBean> bs = new JDDao().getItemType(lv);
+				List<ShopBean> bs = new JDDao().getItemType(lv);
 				if (bs.size() > 2) {
 					beans.add(bs.get(0));
 					beans.add(bs.get(1));
@@ -96,7 +97,7 @@ public class RecDao {
 		// sql += PASSWORD+"='" + cnbean.getPassword() + "',";
 		sql += " where " + userID + "='" + id + "'";
 		System.out.println(sql);
-		baseOperate.execute(sql);
+		baseOperate.executeSingle(sql);
 		
 	}
 
@@ -128,7 +129,7 @@ public class RecDao {
 			sql += "'" + uID + "'";
 			sql += ")";
 			System.out.println(sql);
-			 baseOperate.execute(sql);
+			 baseOperate.executeSingle(sql);
 		}
 	}
 

@@ -98,7 +98,7 @@ public class ArticleDao implements ArticleDaoIntf {
 				+ contentT + "','"+userID +"'";
 		sql += ")";
 		System.out.println(sql);
-		baseOperate.execute(sql);
+		baseOperate.executeSingle(sql);
 	
 	}
 

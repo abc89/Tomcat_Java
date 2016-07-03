@@ -102,7 +102,7 @@ public class UserDao extends DefineDao {
 		sql += "'" + cnbean.getUserName() + "','" // + cnbean.getPassword()
 				+ "','" + cnbean.getPassword() + "'";
 		sql += ")";
-		baseOperate.execute(sql);
+		baseOperate.executeSingle(sql);
 	}
 
 	/***
@@ -117,7 +117,7 @@ public class UserDao extends DefineDao {
 		sql += USERNAME + "='" + cnbean.getUserName() + "',";
 		// sql += PASSWORD+"='" + cnbean.getPassword() + "',";
 		sql += " where " + ID + "='" + cnbean.getID() + "'";
-		baseOperate.execute(sql);
+		baseOperate.executeSingle(sql);
 		return true;
 	}
 
@@ -198,7 +198,7 @@ public class UserDao extends DefineDao {
 		sql += ") values(";
 		sql += "'" + userName2 + "','" + password2 + "'";
 		sql += ")";
-		 baseOperate.execute(sql);
+		 baseOperate.executeSingle(sql);
 		return true;
 	}
 

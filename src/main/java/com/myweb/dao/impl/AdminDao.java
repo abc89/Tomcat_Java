@@ -79,7 +79,7 @@ public class AdminDao extends DefineDao {
 		sql += DEC + "='" + cnbean.getDec() + "'";
 		sql += NAME + "='" + cnbean.getName() + "'";
 		sql += " where " + ID + "='" + cnbean.getID() + "'";
-		Boolean ok=baseOperate.execute(sql);
+		Boolean ok=baseOperate.executeSingle(sql);
 		return ok;
 	}
 

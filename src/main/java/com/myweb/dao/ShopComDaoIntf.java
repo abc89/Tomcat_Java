@@ -5,6 +5,6 @@ import java.util.List;
 import com.myweb.bean.ShopCommentBean;
 
 
-public interface ShopComDaoIntf extends ShopDaoIntf {
+public interface ShopComDaoIntf extends ShopDaoInfo {
      List<ShopCommentBean> getComments(String shopID);
 }

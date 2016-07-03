@@ -9,6 +9,6 @@ import com.myweb.bean.ShopBean;
  * @author e7691
  *
  */
-public abstract class ShopDao implements ShopDaoIntf {     
+public abstract class ShopDao implements ShopDaoInfo {     
 	protected abstract ShopBean builder(ResultSet rs);
 }

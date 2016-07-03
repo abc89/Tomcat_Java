@@ -12,15 +12,16 @@ import com.myweb.bean.ArticleList;
 import com.myweb.bean.Bean;
 import com.myweb.bean.JDBean;
 import com.myweb.bean.ShopBean;
-import com.myweb.dao.ShopDaoIntf;
+import com.myweb.dao.ShopDaoInfo;
 import com.myweb.db.impl.DataBaseOperate;
 import com.myweb.db.impl.DataBaseOperateException;
+import com.myweb.exception.MethodNoImplementException;
 /***
  * 京东数据存取
  * @author e7691
  *
  */
-public class JDDao implements ShopDaoIntf {
+public class JDDao implements ShopDaoInfo {
 	private String TABLENAME = "item";
 	private String ID = "id";
 	private String type = "type";
@@ -38,7 +39,7 @@ public class JDDao implements ShopDaoIntf {
 	public void Delete(String where, String value) {
 		String sql = "delete " + TABLENAME + " where ";
 		sql += where + "=" + value;
-		baseOperate.execute(sql);
+		baseOperate.executeSingle(sql);
 
 	}
     /**
@@ -46,8 +47,8 @@ public class JDDao implements ShopDaoIntf {
      * @param search
      * @return
      */
-	public List<JDBean> getItemType(String search) {
-		List<JDBean> beans = new ArrayList<JDBean>();
+	public List<ShopBean> getItemType(String search) {
+		List<ShopBean> beans = new ArrayList<ShopBean>();
 		String sql = "select * from " + TABLENAME + " where " + type + "='"
 				+ search + "'";
 		
@@ -97,20 +98,27 @@ public class JDDao implements ShopDaoIntf {
 	 * insert  new item in itemtable 
 	 */
 	@Override
-	public void insert(ShopBean sbean) {
-		JDBean bean=(JDBean)sbean;
-		if (bean == null) {
-			return;
+	public void insert(List<ShopBean> jDBeans) {
+		List<String> sqls=new ArrayList<String>();
+		for (ShopBean shopBean : jDBeans) {		
+			JDBean bean=(JDBean)shopBean;
+			if (bean == null) {
+				return;
+			}
+			String sql = "insert into " + TABLENAME + " (";
+			sql += itemID + "," + type + "," + price + "," + title + "," + imgUrl
+					+ "," + goodCount;
+			sql += ") values(";
+			sql += "'" + bean.getShopID() + "','" + bean.getShopType() + "','"
+					+ bean.getPrice() + "','" + bean.getTitle() + "','"
+					+ bean.getImg_url() + "','" + bean.getGoodCount() + "'";
+			sql += ")";
+			sqls.add(sql);
 		}
-		String sql = "insert into " + TABLENAME + " (";
-		sql += itemID + "," + type + "," + price + "," + title + "," + imgUrl
-				+ "," + goodCount;
-		sql += ") values(";
-		sql += "'" + bean.getShopID() + "','" + bean.getShopType() + "','"
-				+ bean.getPrice() + "','" + bean.getTitle() + "','"
-				+ bean.getImg_url() + "','" + bean.getGoodCount() + "'";
-		sql += ")";
-		baseOperate.execute(sql);
+		//批处理语句不为空
+		if(!sqls.isEmpty()){			
+			Boolean exResult=baseOperate.excuteBatch(sqls);
+		}
 	}
 	@Override
 	public ShopBean get(String search) {
@@ -127,6 +135,15 @@ public class JDDao implements ShopDaoIntf {
 			e.printStackTrace();
 		} 
 		return bean;
+	}
+	@Override
+	public void insert(ShopBean bean) {
+		try {
+			throw new MethodNoImplementException();
+		} catch (MethodNoImplementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
